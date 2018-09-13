@@ -19,6 +19,11 @@ var feltTextureImage;
 var feltTextureImageX;
 var feltTextureImageY;
 
+// The added image of the little devil
+var devilImage;
+// The position of the creepy devil
+var devilImageX;
+var devilImageY;
 
 // preload()
 //
@@ -27,6 +32,9 @@ var feltTextureImageY;
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+
+// Adding the extra devil image
+  devilImage = loadImage("assets/images/devil.png");
 }
 
 
@@ -48,6 +56,10 @@ function setup() {
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
+
+  // Setting up the devil initial position
+  devilImageX = (0);
+  devilImageY = height/2;
 }
 
 
@@ -63,6 +75,12 @@ function draw() {
 
   // Display the felt image
   image(feltTextureImage,feltTextureImageX,feltTextureImageY);
+
+  // Make the devil go to the right side of the screen
+  devilImageX =devilImageX + 1;
+
+  // Display the weird devil
+  image(devilImage,devilImageX,devilImageY);
 
   // Move the clown by moving it 1/10th of its current distance from the mouse
 
