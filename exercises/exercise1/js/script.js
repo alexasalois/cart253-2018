@@ -25,6 +25,13 @@ var devilImage;
 var devilImageX;
 var devilImageY;
 
+// adding a new annoyed image
+var booImage;
+
+// the position of the boo image
+var booImageX;
+var booImageY;
+
 // preload()
 //
 // Load the two images we're using before the program starts
@@ -35,6 +42,9 @@ function preload() {
 
 // Adding the extra devil image
   devilImage = loadImage("assets/images/devil.png");
+
+// Loading the 4th image, annoyed boo
+  booImage = loadImage("assets/images/booreact.png");
 }
 
 
@@ -93,4 +103,13 @@ function draw() {
 
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  // Adding the annoyed boo face to follow your mouse
+  booImageX = mouseX;
+  booImageY = mouseY;
+
+  // load the boo react image and make it smaller
+  image(booImage,booImageX,booImageY,50,50);
+
+
 }
