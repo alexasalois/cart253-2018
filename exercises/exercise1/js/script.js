@@ -13,24 +13,29 @@ var clownImage;
 var clownImageX;
 var clownImageY;
 
-// The transparent image of "felt" that wipes down the canvas
-var feltTextureImage;
-// The current position of the transparent image of "felt"
-var feltTextureImageX;
-var feltTextureImageY;
+  // The transparent image of "felt" that wipes down the canvas
+  var feltTextureImage;
+  // The current position of the transparent image of "felt"
+  var feltTextureImageX;
+  var feltTextureImageY;
 
-// The added image of the little devil
-var devilImage;
-// The position of the creepy devil
-var devilImageX;
-var devilImageY;
+    // The added image of the little devil
+    var devilImage;
+    // The position of the creepy devil
+    var devilImageX;
+    var devilImageY;
 
-// adding a new annoyed image
-var booImage;
+      // adding a new annoyed image
+      var booImage;
+      // the position of the boo image
+      var booImageX;
+      var booImageY;
 
-// the position of the boo image
-var booImageX;
-var booImageY;
+        // adding another image (nerdy emoji)
+        var nerdyImage;
+        // specifying the position of the nerdy emoji
+        var nerdyImageX;
+        var nerdyImageY;
 
 // preload()
 //
@@ -45,8 +50,10 @@ function preload() {
 
 // Loading the 4th image, annoyed boo
   booImage = loadImage("assets/images/booreact.png");
-}
 
+// Loading the other image, nerdy face
+  nerdyImage = loadImage("assets/images/nerdy.png");
+}
 
 // setup()
 //
@@ -70,8 +77,11 @@ function setup() {
   // Setting up the devil initial position
   devilImageX = (0);
   devilImageY = height/2;
-}
 
+  //Start nerdy face at the center of the canvas
+  nerdyImageX = width/2;
+  nerdyImageY = height/2;
+}
 
 // draw()
 //
@@ -86,30 +96,39 @@ function draw() {
   // Display the felt image
   image(feltTextureImage,feltTextureImageX,feltTextureImageY);
 
-  // Make the devil go to the right side of the screen
-  devilImageX =devilImageX + 1;
+    // Make the devil go to the right side of the screen
+    devilImageX =devilImageX + 1;
 
-  // Display the weird devil
-  image(devilImage,devilImageX,devilImageY);
+    // Display the weird devil
+    image(devilImage,devilImageX,devilImageY);
 
-  // Move the clown by moving it 1/10th of its current distance from the mouse
+      // Move the clown by moving it 1/10th of its current distance from the mouse
 
-  // Calculate the distance in X and in Y
-  var xDistance = mouseX - clownImageX;
-  var yDistance = mouseY - clownImageY;
-  // Add 1/10th of the x and y distance to the clown's current (x,y) location
-  clownImageX = clownImageX + xDistance/10;
-  clownImageY = clownImageY + yDistance/10;
+      // Calculate the distance in X and in Y
+      var xDistance = mouseX - clownImageX;
+      var yDistance = mouseY - clownImageY;
+      // Add 1/10th of the x and y distance to the clown's current (x,y) location
+      clownImageX = clownImageX + xDistance/10;
+      clownImageY = clownImageY + yDistance/10;
 
-  // Display the clown image
-  image(clownImage,clownImageX,clownImageY);
+      // Display the clown image
+      image(clownImage,clownImageX,clownImageY);
 
-  // Adding the annoyed boo face to follow your mouse
-  booImageX = mouseX;
-  booImageY = mouseY;
+        // Adding the annoyed boo face to follow your mouse
+        booImageX = mouseX;
+        booImageY = mouseY;
 
-  // load the boo react image and make it smaller
-  image(booImage,booImageX,booImageY,50,50);
+        // load the boo react image and make it smaller
+        image(booImage,booImageX,booImageY,50,50);
 
+          // Make the nerdy face follow the mouse but more slow
+          var xDistance = mouseX - nerdyImageX;
+          var yDistance = mouseY - nerdyImageY;
+
+          nerdyImageX = nerdyImageX + xDistance/60;
+          nerdyImageY = nerdyImageY + yDistance/60;
+
+          // Display the nerdy image and reduce the size
+          image(nerdyImage,nerdyImageX,nerdyImageY,75,75);
 
 }
