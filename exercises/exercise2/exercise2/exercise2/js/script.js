@@ -37,6 +37,9 @@ var dodges = 0;
 
 var textDodges = dodges;
 
+// enemy set up:
+var resp = "Responsibilities!"
+
 //
 
 // setup()
@@ -79,7 +82,7 @@ function draw() {
   rect(175,150,100,350);
   rect(420,100,100,400);
 
-// inserting text
+// inserting text & counter
 fill(255);
 textSize(45);
 textAlign(CENTER);
@@ -174,11 +177,15 @@ text(dodges, width/2,50);
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
 
+// making the enemy
+fill(255);
+textSize(25);
+text(resp, enemyX,enemyY);
 
 // enemy
-  fill(0)
+  // fill(0)
 
   // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
+  // ellipse(enemyX,enemyY,enemySize,enemySize);
 
 }
