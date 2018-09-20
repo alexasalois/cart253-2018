@@ -33,6 +33,12 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
+/////////////////////// text set up
+
+var textDodges = dodges;
+
+//
+
 // setup()
 //
 // Make the canvas, position the avatar and anemy
@@ -50,15 +56,34 @@ function setup() {
 
   // No stroke so it looks cleaner
   noStroke();
-}
-
+  }
 // draw()
 //
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
-  background(255,220,220);
+
+  //changing the background
+
+  // Blue sky
+  background(25,25,112);
+
+  // Creating some skyscrapers
+  fill(50);
+  rect(0,200,100,300);
+  rect(220,70,90,440);
+  fill(25);
+  rect(100,100,100,400);
+  rect(300,200,200,300);
+  fill(75);
+  rect(175,150,100,350);
+  rect(420,100,100,400);
+
+// inserting text
+fill(255);
+textSize(45);
+textAlign(CENTER);
+text(dodges, width/2,50);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -131,6 +156,7 @@ function draw() {
     dodges = dodges + 1;
     // Tell them how many dodges they have made
     console.log(dodges + " DODGES!");
+
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
@@ -138,6 +164,7 @@ function draw() {
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
   }
+
 
   // Display the current number of successful in the console
   console.log(dodges);
@@ -147,8 +174,10 @@ function draw() {
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
 
-  // The enemy is red
-  fill(255,0,0);
+
+// enemy
+  fill(0)
+
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
