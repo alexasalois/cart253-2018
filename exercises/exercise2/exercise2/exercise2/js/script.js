@@ -176,9 +176,9 @@ function draw() {
 
   // add a little party hat. Party time!
   fill(255,20,147);
-  triangle(avatarX-20, avatarY - 20, avatarX, avatarY - 60, avatarX + 20,  avatarY - 20);
+  triangle(avatarX-20, avatarY - avatarSize/2, avatarX, avatarY - avatarSize/2 - 40, avatarX + 20,  avatarY - avatarSize/2);
   fill(127,255,0);
-  ellipse(avatarX, avatarY - 60, 15,15);
+  ellipse(avatarX, avatarY - avatarSize/2 - 40, 15,15);
 
   // Give a face to the poor guy
   fill(0);
@@ -190,7 +190,7 @@ function draw() {
   var resp = "Responsibilities!";
   var what = "WHAT ARE YOU DOING";
 
-  if (dodges > 5) {
+  if (dodges > 4) {
     fill(219,112,147);
     ellipse(avatarX, avatarY + 15,15,15);
     resp = what;
