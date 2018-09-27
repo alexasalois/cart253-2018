@@ -34,7 +34,6 @@ var enemySpeedIncrease = 0.5;
 var dodges = 0;
 
 // Setting up the text on top / counter
-
 var textDodges = dodges;
 
 // enemy set up:
@@ -139,6 +138,7 @@ text(dodges, width/2,50);
     avatarY = height/2;
     // Reset the dodge counter
     dodges = 0;
+
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -160,23 +160,27 @@ text(dodges, width/2,50);
     dodges = dodges + 1;
     // Tell them how many dodges they have made
     console.log(dodges + " DODGES!");
-
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
     // Increase the enemy's speed and size to make the game harder
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
+
+    // Make the player change size randomly after each dodge
+    //avatarSize = random;
+    //avatarSpeed = random;
+
   }
 
     // Adding new text for if scenario
-    if (dodges > 5) {
+  //  if (dodges > 5) {
     // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);
-    resp = what;
-  }
-    else {
-    what = resp;
-  }
+  //  resp = what;
+//  }
+    //else {
+    //what = resp;
+//  }
 
 
   // Display the current number of successful in the console
@@ -200,12 +204,16 @@ text(dodges, width/2,50);
 
   // Bonus if scenario: adding facial feature
   if (dodges > 5) {
-  fill(255,0,0);
-  ellipse(avatarX, avatarY + 15, 15,15);
+    fill(255,0,0);
+    ellipse(avatarX, avatarY + 15, 15,15);
+    resp = what;
 }
+//  if (dodges < 5) {
+  //  what = resp;
+//}
 
-// making the enemy
-fill(255);
-textSize(25);
-text(resp, enemyX,enemyY);
+  // making the enemy
+  fill(255);
+  textSize(25);
+  text(resp, enemyX,enemyY);
 }
