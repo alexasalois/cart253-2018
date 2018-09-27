@@ -33,14 +33,15 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
-/////////////////////// text set up
+// Setting up the text on top / counter
 
 var textDodges = dodges;
 
 // enemy set up:
-var resp = "Responsibilities!"
+var resp = "Responsibilities!";
 
-//
+// New enemy set up after dodges > 5
+var what = "WHAT ARE YOU DOING";
 
 // setup()
 //
@@ -168,24 +169,43 @@ text(dodges, width/2,50);
     enemySize = enemySize + enemySizeIncrease;
   }
 
+    // Adding new text for if scenario
+    if (dodges > 5) {
+    // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);
+    resp = what;
+  }
+    else {
+    what = resp;
+  }
+
 
   // Display the current number of successful in the console
   console.log(dodges);
 
-  // The player is black
-  fill(0);
+  // The player is *now* beige
+  fill(255,218,185);
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
+
+  // add a little party hat. Party time!
+  fill(255,20,147);
+  triangle(avatarX-20, avatarY - 20, avatarX, avatarY - 60, avatarX + 20,  avatarY - 20);
+  fill(127,255,0);
+  ellipse(avatarX, avatarY - 60, 15,15);
+
+  // Give a face to the poor guy
+  fill(0);
+  ellipse(avatarX - 10, avatarY, 10,10);
+  ellipse(avatarX + 10, avatarY, 10,10);
+
+  // Bonus if scenario: adding facial feature
+  if (dodges > 5) {
+  fill(255,0,0);
+  ellipse(avatarX, avatarY + 15, 15,15);
+}
 
 // making the enemy
 fill(255);
 textSize(25);
 text(resp, enemyX,enemyY);
-
-// enemy
-  // fill(0)
-
-  // Draw the enemy as a circle
-  // ellipse(enemyX,enemyY,enemySize,enemySize);
-
 }
