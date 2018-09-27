@@ -33,9 +33,6 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
-// Setting up the text on top / counter
-var textDodges = dodges;
-
 // setup()
 //
 // Make the canvas, position the avatar and anemy
@@ -54,12 +51,12 @@ function setup() {
   // No stroke so it looks cleaner
   noStroke();
   }
+
 // draw()
 //
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-
   //changing the background
 
   // Blue sky
@@ -76,11 +73,11 @@ function draw() {
   rect(175,150,100,350);
   rect(420,100,100,400);
 
-// inserting text & counter
-fill(255);
-textSize(45);
-textAlign(CENTER);
-text(dodges, width/2,50);
+  // inserting text & counter
+  fill(255);
+  textSize(45);
+  textAlign(CENTER);
+  text(dodges, width/2,50);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -160,13 +157,17 @@ text(dodges, width/2,50);
     // Increase the enemy's speed and size to make the game harder
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
+
+    // Make the player change size and speed after every dodge
+    avatarSize = random(20,200);
+    avatarSpeed = random(1,40);
+
     }
 
-    //////////////////////// Make the player change size randomly after each dodge
-  //  if (dodges + 1) {
-  //  avatarSize = (random, random);
-  //  avatarVY = random;
-  //  }
+    //////////////////////// Make the player change size and speed randomly after each dodge
+   //if (dodges + 1) {
+
+    //}
 
   // if (dodges > 5) {
   // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);}
@@ -191,19 +192,16 @@ text(dodges, width/2,50);
   ellipse(avatarX - 10, avatarY, 10,10);
   ellipse(avatarX + 10, avatarY, 10,10);
 
-  // Bonus if scenario: adding facial feature / trying to do the enemy change...
+  // Bonus if scenario: adding facial feature / trying to do the enemy change... (IT WORKS!!!!)
   // enemy set up:
   var resp = "Responsibilities!";
   var what = "WHAT ARE YOU DOING";
+
   if (dodges > 5) {
     fill(105,0,0);
     ellipse(avatarX, avatarY + 15, 15,15);
     resp = what;
 }
-
-/////////////////// Doesn't work...
-// New enemy set up after dodges > 5
-
 
   // making the enemy
   fill(255);
