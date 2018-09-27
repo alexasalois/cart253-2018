@@ -158,8 +158,8 @@ function draw() {
     enemySize = enemySize + enemySizeIncrease;
 
     // Make the player change size and speed after every dodge
-    avatarSize = random(20,200);
-    avatarSpeed = random(1,40);
+    avatarSize = random(20,150);
+    avatarSpeed = random(1,30);
     }
 
   // if (dodges > 5) {
@@ -191,8 +191,8 @@ function draw() {
   var what = "WHAT ARE YOU DOING";
 
   if (dodges > 5) {
-    fill(105,0,0);
-    ellipse(avatarX, avatarY + 15, 15,15);
+    fill(219,112,147);
+    ellipse(avatarX, avatarY + 15,15,15);
     resp = what;
 }
 
