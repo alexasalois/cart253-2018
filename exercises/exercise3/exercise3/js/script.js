@@ -50,6 +50,9 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  // Adding the copy of the target dog!
+  fakeTarget = loadImage("assets/images/animals-target-fake.png");
 }
 
 // setup()
@@ -108,6 +111,27 @@ function setup() {
   targetY = random(0,height);
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
+
+  // Drawing a little "wanted" poster
+  fill(255);
+  rect(windowWidth - 250, windowHeight/15,200,150);
+  fill(255,0,0);
+  rect(windowWidth - 250, windowHeight/20,200,30);
+  rect(windowWidth - 250, windowHeight/3.5,200,30);
+  fill(255)
+  textSize(30);
+  text("W A N T E D",windowWidth - 235, windowHeight/11);
+  textSize(24);
+  text("C R I M I N A L", windowWidth - 230, windowHeight/3.1);
+  fill(0);
+  textSize(13);
+  text("some random sausage dog...",windowWidth - 230, windowHeight/3.7);
+  textSize(15);
+  text("BEWARE",windowWidth - 230, windowHeight/8);
+
+  // Adding the naughty criminal on the poster
+  image(fakeTarget,windowWidth - 150, windowHeight/5.5);
+
 }
 
 function draw() {
@@ -126,11 +150,6 @@ function draw() {
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
   }
-  fill(255);
-  rect(50,50,150,150);
-  fill(255,0,0);
-  rect(50,50,150,30);
-
 }
 
 // mousePressed()
