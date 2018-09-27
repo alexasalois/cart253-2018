@@ -36,12 +36,6 @@ var dodges = 0;
 // Setting up the text on top / counter
 var textDodges = dodges;
 
-// enemy set up:
-var resp = "Responsibilities!";
-
-// New enemy set up after dodges > 5
-var what = "WHAT ARE YOU DOING";
-
 // setup()
 //
 // Make the canvas, position the avatar and anemy
@@ -166,21 +160,16 @@ text(dodges, width/2,50);
     // Increase the enemy's speed and size to make the game harder
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
+    }
 
-    // Make the player change size randomly after each dodge
-    //avatarSize = random;
-    //avatarSpeed = random;
+    //////////////////////// Make the player change size randomly after each dodge
+  //  if (dodges + 1) {
+  //  avatarSize = (random, random);
+  //  avatarVY = random;
+  //  }
 
-  }
-
-    // Adding new text for if scenario
-  //  if (dodges > 5) {
-    // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);
-  //  resp = what;
-//  }
-    //else {
-    //what = resp;
-//  }
+  // if (dodges > 5) {
+  // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);}
 
 
   // Display the current number of successful in the console
@@ -202,15 +191,19 @@ text(dodges, width/2,50);
   ellipse(avatarX - 10, avatarY, 10,10);
   ellipse(avatarX + 10, avatarY, 10,10);
 
-  // Bonus if scenario: adding facial feature
+  // Bonus if scenario: adding facial feature / trying to do the enemy change...
+  // enemy set up:
+  var resp = "Responsibilities!";
+  var what = "WHAT ARE YOU DOING";
   if (dodges > 5) {
-    fill(255,0,0);
+    fill(105,0,0);
     ellipse(avatarX, avatarY + 15, 15,15);
     resp = what;
 }
-//  if (dodges < 5) {
-  //  what = resp;
-//}
+
+/////////////////// Doesn't work...
+// New enemy set up after dodges > 5
+
 
   // making the enemy
   fill(255);
