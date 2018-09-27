@@ -129,7 +129,6 @@ function draw() {
     avatarY = height/2;
     // Reset the dodge counter
     dodges = 0;
-
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -161,13 +160,7 @@ function draw() {
     // Make the player change size and speed after every dodge
     avatarSize = random(20,200);
     avatarSpeed = random(1,40);
-
     }
-
-    //////////////////////// Make the player change size and speed randomly after each dodge
-   //if (dodges + 1) {
-
-    //}
 
   // if (dodges > 5) {
   // Tried to do a random start point y, going in waves: did not work... (enemyY) = 25*sin(enemyX);}
