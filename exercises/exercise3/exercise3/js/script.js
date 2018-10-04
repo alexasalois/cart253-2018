@@ -10,7 +10,7 @@ Animal images from:
 https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal-icon-set/
 ******************************************************************************/
 
-// Position and image of the sausage dog we're searching for
+// Position and image of the sausage dog we're searching for...
 var targetX;
 var targetY;
 var targetImage;
@@ -83,34 +83,34 @@ function setup() {
     // images, each with a 10% chance of being shown
     // We'll talk more about this nice quality of random soon enough
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y,200,200);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y,75,75);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y,30,30);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y,400,400);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y,50,50);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y,90,90);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,100,100);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,65,65);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,80,80);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,75,75);
     }
   }
 
@@ -125,7 +125,7 @@ function setup() {
   }
 
   // And draw it (this means it will always be on top)
-  image(targetImage,targetX,targetY);
+  image(targetImage,targetX,targetY,70,70);
 
   // Loading and positioning the dog poster
   image(fakeTarget,windowWidth-100,windowHeight/7);
@@ -137,13 +137,14 @@ function setup() {
 }
 
 function draw() {
-  // Set up police lights
+  // Set up flashing police lights
   var policeRedLight = '#ff0000';
   var policeBlueLight = '#00ffff';
 
 
   if (gameOver) {
 
+    // Give player a headache since sausage dog is mad about getting caught
     if (currentBackground === policeRedLight) {
     currentBackground = policeBlueLight;
     }
