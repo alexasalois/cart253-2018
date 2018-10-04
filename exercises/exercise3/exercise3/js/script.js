@@ -116,7 +116,7 @@ function setup() {
   targetY = random(0,height);
 
   ////////////////////////////////////////////////////////// Make sure the dog doesn't hide under the poster, if it does go to another location!
-  while ((targetX < windowWidth-100) && (targetY > windowHeight/7)) {
+  while ((targetX > windowWidth-100) && (targetY > windowHeight/7)) {
   targetX = random(0,width);
   targetY = random(0,height);
   }
@@ -137,7 +137,7 @@ function draw() {
   if (gameOver) {
 
     // Change background as if cops just caught poor sausage dog
-    background(random(255,0,0)&&(0,0,255));
+    background((255,0,0)&&(0,0,255));
 
     // Prepare our typography
     textFont("Helvetica");
@@ -145,7 +145,8 @@ function draw() {
     textAlign(CENTER,CENTER);
     noStroke();
     fill(random(255));
-    // Tell them they won!
+
+    // Tell them they won! (Make it more agressive?)
     text("GOTCHA!!!",width/2,height/2);
 
     noFill();
@@ -153,17 +154,17 @@ function draw() {
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
 
-    // Add panicking dog since he got caught
+    // Add panicking dog since he got caught! Make him bounce around
     targetX += dogVX;
     targetY += dogVY;
     image(targetImage,targetX,targetY);
 
     if (targetX > windowWidth || targetX < 0) {
-      dogVX = -dogVX
+      dogVX = -dogVX;
     }
 
     if (targetY > windowHeight || targetY < 0) {
-      dogVY = -dogVY
+      dogVY = -dogVY;
     }
 
   }
