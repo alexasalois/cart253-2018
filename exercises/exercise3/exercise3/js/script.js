@@ -34,6 +34,11 @@ var numDecoys = 100;
 // Keep track of whether they've won
 var gameOver = false;
 
+// Add speed of moving dog when game is won
+var dogSpeed = 15
+var dogVX = 0
+var dogVY = 0
+
 // preload()
 //
 // Loads the target and decoy images before the program starts
@@ -109,15 +114,31 @@ function setup() {
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
   targetY = random(0,height);
+
+  ////////////////////////////////////////////////////////// Make sure the dog doesn't hide under the poster, if it does go to another location!
+  while ((targetX < windowWidth-100) && (targetY > windowHeight/7)) {
+  targetX = random(0,width);
+  targetY = random(0,height);
+  }
+
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
 
   // Loading and positioning the dog poster
   image(fakeTarget,windowWidth-100,windowHeight/7);
+
+  // Preparing the dog speed when game is won
+  dogVX = dogSpeed;
+  dogVY = -dogSpeed;
+
 }
 
 function draw() {
   if (gameOver) {
+
+    // Change background as if cops just caught poor sausage dog
+    background(random(255,0,0)&&(0,0,255));
+
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
@@ -125,13 +146,25 @@ function draw() {
     noStroke();
     fill(random(255));
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("GOTCHA!!!",width/2,height/2);
 
     noFill();
     stroke(random(255));
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
 
+    // Add panicking dog since he got caught
+    targetX += dogVX;
+    targetY += dogVY;
+    image(targetImage,targetX,targetY);
+
+    if (targetX > windowWidth || targetX < 0) {
+      dogVX = -dogVX
+    }
+
+    if (targetY > windowHeight || targetY < 0) {
+      dogVY = -dogVY
+    }
 
   }
 }
