@@ -14,6 +14,7 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 var targetX;
 var targetY;
 var targetImage;
+var fakeTarget;
 
 // The ten decoy images
 var decoyImage1;
@@ -38,6 +39,8 @@ var gameOver = false;
 var dogSpeed = 15
 var dogVX = 0
 var dogVY = 0
+
+var currentBackground = '#ff0000';
 
 // preload()
 //
@@ -115,7 +118,7 @@ function setup() {
   targetX = random(0,width);
   targetY = random(0,height);
 
-  ////////////////////////////////////////////////////////// Make sure the dog doesn't hide under the poster, if it does go to another location!
+  // Make sure the dog doesn't hide under the poster, if it does go to another location!
   while ((targetX > windowWidth-100) && (targetY > windowHeight/7)) {
   targetX = random(0,width);
   targetY = random(0,height);
@@ -134,20 +137,32 @@ function setup() {
 }
 
 function draw() {
+  // Set up police lights
+  var policeRedLight = '#ff0000';
+  var policeBlueLight = '#00ffff';
+
+
   if (gameOver) {
 
-    // Change background as if cops just caught poor sausage dog
-    background((255,0,0)&&(0,0,255));
+    if (currentBackground === policeRedLight) {
+    currentBackground = policeBlueLight;
+    }
+    else {
+    currentBackground=policeRedLight;
+    }
+
+    background(currentBackground);
+
 
     // Prepare our typography
     textFont("Helvetica");
-    textSize(128);
+    textSize(65);
     textAlign(CENTER,CENTER);
     noStroke();
     fill(random(255));
 
     // Tell them they won! (Make it more agressive?)
-    text("GOTCHA!!!",width/2,height/2);
+    text("You're not getting away this time!",width/2,height/2);
 
     noFill();
     stroke(random(255));
