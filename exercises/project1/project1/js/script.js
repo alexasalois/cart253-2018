@@ -45,7 +45,11 @@ var eatHealth = 10;
 var preyEaten = 0;
 
 // Adding the new speed for the sprint option
-var playerSprint = 10
+var playerSprint = 8;
+
+// Preparing the noise variables
+var tx;
+var ty;
 
 // setup()
 //
@@ -57,7 +61,12 @@ function setup() {
 
   setupPrey();
   setupPlayer();
+
+  ///////////////// Setting up the noise for the prey ////////////////////
+  tx = random(0,1000);
+  ty = random(0,1000);
 }
+  /////////////////// END NEW //////////////////////
 
 // setupPrey()
 //
@@ -112,7 +121,7 @@ function draw() {
 function handleInput() {
   // Making the player move
 
-  // Add the sprint option (vertical)
+  /////////////// Add the sprint option (vertical) ///////////////////
   if ((keyIsDown(SHIFT)) && (keyIsDown(UP_ARROW))) {
     playerVY = -playerSprint;
   }
@@ -129,7 +138,7 @@ function handleInput() {
     playerVY = 0;
   }
 
-// Add the spring option (horizontal)
+///////////// Add the sprint option (horizontal)//////////////////
   if ((keyIsDown(SHIFT)) && (keyIsDown(LEFT_ARROW))) {
     playerVX = -playerSprint;
   }
@@ -145,6 +154,7 @@ function handleInput() {
   else {
       playerVX = 0;
   }
+  ///////////// END NEW /////////////////
  }
 
 // movePlayer()
@@ -178,11 +188,14 @@ function movePlayer() {
 // Check if the player is dead
 function updateHealth() {
   // Reduce player health, constrain to reasonable range, add faster decreasing health when sprinting
+
+  ////////////// NEW ///////////////
   if (keyIsDown(SHIFT)) {
     playerHealth = constrain(playerHealth - 2,0,playerMaxHealth);
   }
 
   else playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+  ////////////// END NEW ///////////////
 
   // Check if the player is dead
   if (playerHealth === 0) {
@@ -219,19 +232,18 @@ function checkEating() {
 
 // movePrey()
 //
-// Moves the prey based on random velocity changes
+// Moves the prey based on random velocity changes --> Changing random to noise
 function movePrey() {
   // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    // Use map() to convert from the 0-1 range of the random() function
-    // to the appropriate range of velocities for the prey
-    preyVX = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-    preyVY = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-  }
+
+    /////////// NEW /////////////
+    preyVX = map(noise(tx),0,1,-preyMaxSpeed,preyMaxSpeed);
+    console.log (preyVX)
+    preyVY = map(noise(ty),0,1,-preyMaxSpeed,preyMaxSpeed);
+
+    tx += 0.05;
+    ty += 0.05;
+    //////////// END NEW /////////////
 
   // Update prey position based on velocity
   preyX += preyVX;

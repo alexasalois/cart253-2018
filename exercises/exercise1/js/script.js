@@ -7,128 +7,47 @@
 // One moves toward the mouse cursor.
 
 
-// The image of a clown face
-var clownImage;
-// The current position of the clown face
-var clownImageX;
-var clownImageY;
-
-  // The transparent image of "felt" that wipes down the canvas
-  var feltTextureImage;
-  // The current position of the transparent image of "felt"
-  var feltTextureImageX;
-  var feltTextureImageY;
-
-    // The added image of the little devil
-    var devilImage;
-    // The position of the creepy devil
-    var devilImageX;
-    var devilImageY;
-
-      // adding a new annoyed image
-      var booImage;
-      // the position of the boo image
-      var booImageX;
-      var booImageY;
-
-        // adding another image (nerdy emoji)
-        var nerdyImage;
-        // specifying the position of the nerdy emoji
-        var nerdyImageX;
-        var nerdyImageY;
-
-// preload()
-//
-// Load the two images we're using before the program starts
-
-function preload() {
-  clownImage = loadImage("assets/images/clown.png");
-  feltTextureImage = loadImage("assets/images/black-felt-texture.png");
-
-// Adding the extra devil image
-  devilImage = loadImage("assets/images/devil.png");
-
-// Loading the 4th image, annoyed boo
-  booImage = loadImage("assets/images/booreact.png");
-
-// Loading the other image, nerdy face
-  nerdyImage = loadImage("assets/images/nerdy.png");
-}
-
-// setup()
-//
-// Set up the canvas, position the images, set the image mode.
+var x;
+var y;
+var vx;
+var vy;
+var maxSpeed = 2;
+var tx;
+var ty;
 
 function setup() {
-  // Create our canvas
-  createCanvas(640,640);
-
-  // Start the clown image at the centre of the canvas
-  clownImageX = width/2;
-  clownImageY = height/2;
-
-  // Start the felt image perfectly off screen above the canvas
-  feltTextureImageX = width/2;
-  feltTextureImageY = 0 - feltTextureImage.height/2;
-
-  // We'll use imageMode CENTER for this script
-  imageMode(CENTER);
-
-  // Setting up the devil initial position
-  devilImageX = (0);
-  devilImageY = height/2;
-
-  //Start nerdy face at the center of the canvas
-  nerdyImageX = width/2;
-  nerdyImageY = height/2;
+  createCanvas(500,500);
+  tx = random(0,1000);
+  ty = random(0,1000);
+  x = width/2;
+  y = height/2;
 }
 
-// draw()
-//
-// Moves the felt image linearly
-// Moves the clown face toward the current mouse location
-
 function draw() {
+  background(255);
 
-  // Move the felt image down by increasing its y position
-  feltTextureImageY += 1;
+  vx = map(noise(tx),0,1,-maxSpeed,maxSpeed);
+  vy = map(noise(ty),0,1,-maxSpeed,maxSpeed);
 
-  // Display the felt image
-  image(feltTextureImage,feltTextureImageX,feltTextureImageY);
+  x += vx;
+  y += vy;
 
-    // Make the devil go to the right side of the screen
-    devilImageX =devilImageX + 1;
+  if (x < 0) {
+    x += width;
+  }
+  else if (x > width) {
+    x -= width;
+  }
 
-    // Display the weird devil
-    image(devilImage,devilImageX,devilImageY);
+  if (y < 0) {
+    y += height;
+  }
+  else if (y > height) {
+    y -= height;
+  }
 
-      // Move the clown by moving it 1/10th of its current distance from the mouse
+  tx += 0.01;
+  ty += 0.01;
 
-      // Calculate the distance in X and in Y
-      var xDistance = mouseX - clownImageX;
-      var yDistance = mouseY - clownImageY;
-      // Add 1/10th of the x and y distance to the clown's current (x,y) location
-      clownImageX = clownImageX + xDistance/10;
-      clownImageY = clownImageY + yDistance/10;
-
-      // Display the clown image
-      image(clownImage,clownImageX,clownImageY);
-
-        // Adding the annoyed boo face to follow your mouse
-        booImageX = mouseX;
-        booImageY = mouseY;
-
-        // load the boo react image and make it smaller
-        image(booImage,booImageX,booImageY,50,50);
-
-          // Make the nerdy face follow the mouse but more slow
-          var xDistance = mouseX - nerdyImageX;
-          var yDistance = mouseY - nerdyImageY;
-
-          nerdyImageX = nerdyImageX + xDistance/60;
-          nerdyImageY = nerdyImageY + yDistance/60;
-
-          // Display the nerdy image and reduce the size
-          image(nerdyImage,nerdyImageX,nerdyImageY,75,75);
-
+  ellipse(x,y,10,10);
 }
