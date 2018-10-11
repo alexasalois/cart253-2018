@@ -57,6 +57,7 @@ var preyGhost;
 var playerHunter;
 var forestBG;
 var foundGhost;
+var nightAmbiance
 
 // setup()
 //
@@ -67,18 +68,22 @@ function preload() {
   playerHunter = loadImage("assets/images/ghosthunter.png");
   forestBG = loadImage("assets/images/forest.png");
   foundGhost = new Audio("assets/sounds/suspense.wav");
+  nightAmbiance = new Audio("assets/sounds/night.wav");
 }
 
 
 function setup() {
   createCanvas(500,500);
-
   noStroke();
+
+/////////////////// adding night sounds for ambiance ///////////////////
+  nightAmbiance.play();
+  nightAmbiance.loop = true;
 
   setupPrey();
   setupPlayer();
 
-  ///////////////// Setting up the noise for the prey ////////////////////
+  ///////////////// Setting up the noise velocity for the prey ////////////////////
   tx = random(0,1000);
   ty = random(0,1000);
 }
@@ -321,17 +326,6 @@ function drawPlayer() {
 }
 
 // showGameOver()
-//
-
-function reset() {
-  // Reset the enemy's position
-  preyX = 0;
-  preyY = random(0,height);
-  // Reset the avatar's position
-  playerX = width/2;
-  playerY = height/2;
-  // Reset the prey/ghost counter
-  preyEaten = 0;
 
 // Display text about the game being over!
 function showGameOver() {
@@ -344,9 +338,4 @@ function showGameOver() {
   gameOverText += "before you got scared to death."
   text(gameOverText,width/2,height/2);
   pop();
-
-  if (keyIsDown(SPACEBAR)) {
-    reset();
-  }
-  }
 }
