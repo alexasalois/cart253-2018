@@ -52,19 +52,21 @@ var playerSprint = 8;
 var tx;
 var ty;
 
-/////////////////////////// New images for the player and prey, and background //////////////////
+/////////////////////////// New images for the player and prey, and background, and sound //////////////////
 var preyGhost;
 var playerHunter;
 var forestBG;
+var foundGhost;
 
 // setup()
 //
 // Sets up the basic elements of the game
-/////////////////////////// Load the images for the game /////////////////////////
+/////////////////////////// Load the images for the game and sound effect /////////////////////////
 function preload() {
   preyGhost = loadImage("assets/images/ghost.png");
   playerHunter = loadImage("assets/images/ghosthunter.png");
   forestBG = loadImage("assets/images/forest.png");
+  foundGhost = new Audio("assets/sounds/suspense.wav");
 }
 
 
@@ -218,7 +220,7 @@ function movePlayer() {
 function updateHealth() {
   // Reduce player health, constrain to reasonable range, add faster decreasing health when sprinting
 
-  ////////////// NEW ///////////////
+  ////////////// NEW, make health decrease faster when sprint ///////////////
   if (keyIsDown(SHIFT)) {
     playerHealth = constrain(playerHealth - 2,0,playerMaxHealth);
   }
@@ -245,6 +247,8 @@ function checkEating() {
     playerHealth = constrain(playerHealth + eatHealth,0,playerMaxHealth);
     // Reduce the prey health
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
+    ///////////////// play the sound! /////////////////
+    foundGhost.play()
 
     // Check if the prey died
     if (preyHealth === 0) {
@@ -298,8 +302,10 @@ function movePrey() {
 //
 ////////////////////// Draw the prey as a cute ghost //////////////////////
 function drawPrey() {
+  push();
   tint(255,preyHealth);
   image(preyGhost,preyX,preyY,preyRadius*2, preyRadius*2);
+  pop();
 
 }
 
@@ -308,14 +314,28 @@ function drawPrey() {
 //
 /////////////////// Draw the player as a cute ghost hunter ////////////////////////
 function drawPlayer() {
+  push();
   tint(255,playerHealth);
   image(playerHunter,playerX,playerY,playerRadius*5, playerRadius*5);
+  pop();
 }
 
 // showGameOver()
 //
+
+function reset() {
+  // Reset the enemy's position
+  preyX = 0;
+  preyY = random(0,height);
+  // Reset the avatar's position
+  playerX = width/2;
+  playerY = height/2;
+  // Reset the prey/ghost counter
+  preyEaten = 0;
+
 // Display text about the game being over!
 function showGameOver() {
+  push();
   textSize(32);
   textAlign(CENTER,CENTER);
   fill(255);
@@ -323,4 +343,10 @@ function showGameOver() {
   gameOverText += "You found " + preyEaten + " ghosts\n";
   gameOverText += "before you got scared to death."
   text(gameOverText,width/2,height/2);
+  pop();
+
+  if (keyIsDown(SPACEBAR)) {
+    reset();
+  }
+  }
 }
