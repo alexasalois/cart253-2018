@@ -44,6 +44,9 @@ var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
+// Adding the new speed for the sprint option
+var playerSprint = 10
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -107,19 +110,16 @@ function draw() {
 //
 // Checks arrow keys and adjusts player velocity accordingly
 function handleInput() {
-  // Check for horizontal movement
-  if (keyIsDown(LEFT_ARROW)) {
-    playerVX = -playerMaxSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
-    playerVX = playerMaxSpeed;
-  }
-  else {
-    playerVX = 0;
-  }
+  // Making the player move
 
-  // Check for vertical movement
-  if (keyIsDown(UP_ARROW)) {
+  // Add the sprint option (vertical)
+  if ((keyIsDown(SHIFT)) && (keyIsDown(UP_ARROW))) {
+    playerVY = -playerSprint;
+  }
+  else if ((keyIsDown(SHIFT)) && (keyIsDown(DOWN_ARROW))) {
+    playerVY = playerSprint;
+  }
+  else if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
   }
   else if (keyIsDown(DOWN_ARROW)) {
@@ -128,7 +128,24 @@ function handleInput() {
   else {
     playerVY = 0;
   }
-}
+
+// Add the spring option (horizontal)
+  if ((keyIsDown(SHIFT)) && (keyIsDown(LEFT_ARROW))) {
+    playerVX = -playerSprint;
+  }
+  else if ((keyIsDown(SHIFT)) && (keyIsDown(RIGHT_ARROW))) {
+    playerVX = playerSprint;
+  }
+  else if (keyIsDown(LEFT_ARROW)) {
+      playerVX = -playerMaxSpeed;
+  }
+  else if (keyIsDown(RIGHT_ARROW)) {
+      playerVX = playerMaxSpeed;
+  }
+  else {
+      playerVX = 0;
+  }
+ }
 
 // movePlayer()
 //
