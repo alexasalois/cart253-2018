@@ -177,8 +177,13 @@ function movePlayer() {
 // Reduce the player's health (every frame)
 // Check if the player is dead
 function updateHealth() {
-  // Reduce player health, constrain to reasonable range
-  playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+  // Reduce player health, constrain to reasonable range, add faster decreasing health when sprinting
+  if (keyIsDown(SHIFT)) {
+    playerHealth = constrain(playerHealth - 2,0,playerMaxHealth);
+  }
+
+  else playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+
   // Check if the player is dead
   if (playerHealth === 0) {
     // If so, the game is over
