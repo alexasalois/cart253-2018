@@ -32,7 +32,8 @@ var preyY;
 var preyRadius = 25;
 var preyVX;
 var preyVY;
-var preyMaxSpeed = 4;
+////////////// Made the prey a bit faster ////////////
+var preyMaxSpeed = 6;
 // Prey health
 var preyHealth;
 var preyMaxHealth = 100;
@@ -51,9 +52,22 @@ var playerSprint = 8;
 var tx;
 var ty;
 
+/////////////////////////// New images for the player and prey, and background //////////////////
+var preyGhost;
+var playerHunter;
+var forestBG;
+
 // setup()
 //
 // Sets up the basic elements of the game
+/////////////////////////// Load the images for the game /////////////////////////
+function preload() {
+  preyGhost = loadImage("assets/images/ghost.png");
+  playerHunter = loadImage("assets/images/ghosthunter.png");
+  forestBG = loadImage("assets/images/forest.png");
+}
+
+
 function setup() {
   createCanvas(500,500);
 
@@ -95,8 +109,23 @@ function setupPlayer() {
 // checks health (dying), checks eating (overlaps)
 // displays the two agents.
 // When the game is over, shows the game over screen.
+
+///////////////////// Add text on what to do... //////////////////////
 function draw() {
-  background(100,100,200);
+  var findProof
+  findProof = "Find evidence! Prove everyone wrong! Use the flashlight..."
+
+  background(forestBG);
+  fill(255);
+  textSize(15);
+  textAlign(LEFT);
+  text(findProof, width-490, height-480);
+
+  ////////////// Adding a counter ///////////
+  fill(255);
+  textSize(50);
+  textAlign(RIGHT);
+  text(preyEaten, width-20, height-450);
 
   if (!gameOver) {
     handleInput();
@@ -238,11 +267,11 @@ function movePrey() {
 
     /////////// NEW /////////////
     preyVX = map(noise(tx),0,1,-preyMaxSpeed,preyMaxSpeed);
-    console.log (preyVX)
     preyVY = map(noise(ty),0,1,-preyMaxSpeed,preyMaxSpeed);
 
     tx += 0.05;
     ty += 0.05;
+
     //////////// END NEW /////////////
 
   // Update prey position based on velocity
@@ -267,18 +296,20 @@ function movePrey() {
 
 // drawPrey()
 //
-// Draw the prey as an ellipse with alpha based on health
+////////////////////// Draw the prey as a cute ghost //////////////////////
 function drawPrey() {
-  fill(preyFill,preyHealth);
-  ellipse(preyX,preyY,preyRadius*2);
+  tint(255,preyHealth);
+  image(preyGhost,preyX,preyY,preyRadius*2, preyRadius*2);
+
 }
+
 
 // drawPlayer()
 //
-// Draw the player as an ellipse with alpha based on health
+/////////////////// Draw the player as a cute ghost hunter ////////////////////////
 function drawPlayer() {
-  fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  tint(255,playerHealth);
+  image(playerHunter,playerX,playerY,playerRadius*5, playerRadius*5);
 }
 
 // showGameOver()
@@ -287,9 +318,9 @@ function drawPlayer() {
 function showGameOver() {
   textSize(32);
   textAlign(CENTER,CENTER);
-  fill(0);
+  fill(255);
   var gameOverText = "GAME OVER\n";
-  gameOverText += "You ate " + preyEaten + " prey\n";
-  gameOverText += "before you died."
+  gameOverText += "You found " + preyEaten + " ghosts\n";
+  gameOverText += "before you got scared to death."
   text(gameOverText,width/2,height/2);
 }
