@@ -19,7 +19,7 @@ var playerY;
 var playerRadius = 25;
 var playerVX = 0;
 var playerVY = 0;
-var playerMaxSpeed = 2;
+var playerMaxSpeed = 4;
 // Player health
 var playerHealth;
 var playerMaxHealth = 255;
@@ -57,7 +57,10 @@ var preyGhost;
 var playerHunter;
 var forestBG;
 var foundGhost;
-var nightAmbiance
+var nightAmbiance;
+
+///////////////// Making the ghost go faster over time because he is scared ): /////////////////
+var preyAcceleration = 0.5;
 
 // setup()
 //
@@ -87,7 +90,6 @@ function setup() {
   tx = random(0,1000);
   ty = random(0,1000);
 }
-  /////////////////// END NEW //////////////////////
 
 // setupPrey()
 //
@@ -119,8 +121,8 @@ function setupPlayer() {
 
 ///////////////////// Add text on what to do... //////////////////////
 function draw() {
-  var findProof
-  findProof = "Find evidence! Prove everyone wrong! Use the flashlight..."
+  var findProof;
+  findProof = "Find evidence! Prove everyone wrong! Use the flashlight...";
 
   background(forestBG);
   fill(255);
@@ -253,7 +255,9 @@ function checkEating() {
     // Reduce the prey health
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
     ///////////////// play the sound! /////////////////
-    foundGhost.play()
+    foundGhost.play();
+//////////////////////////////////////////////////////////
+    preyMaxSpeed = preyAcceleration + preyMaxSpeed;
 
     // Check if the prey died
     if (preyHealth === 0) {
@@ -274,14 +278,12 @@ function checkEating() {
 function movePrey() {
   // Change the prey's velocity at random intervals
 
-    /////////// NEW /////////////
+    /////////// Noise velocity instead of just random /////////////
     preyVX = map(noise(tx),0,1,-preyMaxSpeed,preyMaxSpeed);
     preyVY = map(noise(ty),0,1,-preyMaxSpeed,preyMaxSpeed);
 
     tx += 0.05;
     ty += 0.05;
-
-    //////////// END NEW /////////////
 
   // Update prey position based on velocity
   preyX += preyVX;
@@ -290,18 +292,20 @@ function movePrey() {
   // Screen wrapping
   if (preyX < 0) {
     preyX += width;
-  }
+    }
   else if (preyX > width) {
     preyX -= width;
-  }
+    }
 
   if (preyY < 0) {
     preyY += height;
-  }
+    }
   else if (preyY > height) {
     preyY -= height;
+    }
+
+////////////////// Tried to add speed increase but does not work... ): ////////////////
   }
-}
 
 // drawPrey()
 //
@@ -335,7 +339,23 @@ function showGameOver() {
   fill(255);
   var gameOverText = "GAME OVER\n";
   gameOverText += "You found " + preyEaten + " ghosts\n";
-  gameOverText += "before you got scared to death."
+  gameOverText += "before you got scared to death.";
   text(gameOverText,width/2,height/2);
   pop();
+
+function keyIsPressed() {
+    reset();
+    console.log(keyIsPressed);
+  }
+}
+
+function reset() {
+  // Reset the ghost's position
+  preyX = random(0,width);
+  preyY = random(0,height);
+  // Reset the avatar's position
+  playerX = width/2;
+  playerY = height/2;
+  // Reset the caught ghost counter
+  preyEaten = 0;
 }
