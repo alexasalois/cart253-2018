@@ -60,7 +60,7 @@ var foundGhost;
 var nightAmbiance;
 
 ///////////////// Making the ghost go faster over time because he is scared ): /////////////////
-var preyAcceleration = 0.5;
+var preyAcceleration = 0.4;
 
 // setup()
 //
@@ -256,7 +256,7 @@ function checkEating() {
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
     ///////////////// play the sound! /////////////////
     foundGhost.play();
-//////////////////////////////////////////////////////////
+///////////////// Set up prey going faster with every successful catch ///////////////////
     preyMaxSpeed = preyAcceleration + preyMaxSpeed;
 
     // Check if the prey died
@@ -303,8 +303,6 @@ function movePrey() {
   else if (preyY > height) {
     preyY -= height;
     }
-
-////////////////// Tried to add speed increase but does not work... ): ////////////////
   }
 
 // drawPrey()
@@ -342,11 +340,6 @@ function showGameOver() {
   gameOverText += "before you got scared to death.";
   text(gameOverText,width/2,height/2);
   pop();
-
-function keyIsPressed() {
-    reset();
-    console.log(keyIsPressed);
-  }
 }
 
 function reset() {
