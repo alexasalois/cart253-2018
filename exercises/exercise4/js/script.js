@@ -8,8 +8,10 @@
 var bgColor = 0;
 var fgColor = 255;
 
+
 /////////////// NEW ///////////////
 var speedChange = 0.5;
+var help = "seek out help."
 ////////////// END ////////////////
 
 // BALL
@@ -99,6 +101,7 @@ function setupPaddles() {
   // Initialise the right paddle
   rightPaddle.x = width - paddleInset;
   rightPaddle.y = height/2;
+
 }
 
 // setupBall()
@@ -140,8 +143,8 @@ function draw() {
   handleBallOffScreen();
 
   // Display the paddles and ball
-  displayPaddle(leftPaddle);
-  displayPaddle(rightPaddle);
+  displayPaddleLeft();
+  displayPaddleRight();
   displayBall();
 }
 
@@ -267,25 +270,40 @@ function handleBallOffScreen() {
     // This is where we would count points etc!
 
   /////////////// NEW /////////////////
-    ballToWinner();
+    reset();
   }
+
+  if (ballRight < 0) {
+  rightPaddle.h = rightPaddle.h - 10
+
+  }
+  if (ballLeft > width) {
+  leftPaddle.h = leftPaddle.h + 10
+}
+
 }
 
 // displayBall()
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-  rect(ball.x,ball.y,ball.size,ball.size);
+  fill(255);
+  text(help,ball.x,ball.y);
+  textSize(ball.size);
 }
 
 // displayPaddle(paddle)
 //
 // Draws the specified paddle on screen based on its properties
-function displayPaddle(paddle) {
-  rect(paddle.x,paddle.y,paddle.w,paddle.h);
+function displayPaddleLeft() {
+  fill(0,255,0);
+  rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
 }
-
-function ballToWinner() {
+function displayPaddleRight() {
+  fill(255,0,0);
+  rect(rightPaddle.x,rightPaddle.y,rightPaddle.w,rightPaddle.h);
+}
+function reset() {
   ball.vx = -ball.vx;
   ball.vy = -ball.vy;
   ball.vx += random(-speedChange,speedChange);
