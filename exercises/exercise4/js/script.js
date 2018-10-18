@@ -8,26 +8,21 @@
 var bgColor = 0;
 var fgColor = 255;
 
+/////////////// NEW ///////////////
+var speedChange = 0.5;
+////////////// END ////////////////
+
 // BALL
-///////////// NEW //////////////
-var textColor = 255;
-var textBall = "blame";
-var speedChange = 1;
-var leftScore = 0;
-var rightScore = 0;
-///////////// END ///////////////
 
 // Basic definition of a ball object with its key properties of
 // position, size, velocity, and speed
 var ball = {
   x: 0,
   y: 0,
+  size: 20,
   vx: 0,
   vy: 0,
-  speed: 5,
-  //////////////// NEW //////////////////
-  size: 25
-  /////////////// END //////////////////
+  speed: 5
 }
 
 // PADDLES
@@ -69,11 +64,6 @@ var rightPaddle = {
 
 // A variable to hold the beep sound we will play on bouncing
 var beepSFX;
-
-////////////// NEW ///////////////
-var scoreLeft = 0;
-var scoreRight = 0;
-///////////// END ////////////////
 
 // preload()
 //
@@ -119,10 +109,6 @@ function setupBall() {
   ball.y = height/2;
   ball.vx = ball.speed;
   ball.vy = ball.speed;
-}
-
-//////////////////// NEW /////////////////////
-function scoreCounter() {
 }
 
 // draw()
@@ -279,31 +265,17 @@ function handleBallOffScreen() {
     // carries on moving with the same velocity after its
     // position is reset.
     // This is where we would count points etc!
-  }
-  ////////////// NEW /////////////////
-  if (ballRight < 0) {
-    scoreRight = scoreRight + 1;
-    console.log(scoreRight);
 
+  /////////////// NEW /////////////////
+    ballToWinner();
   }
-  if (ballLeft > width) {
-    scoreLeft = scoreLeft + 1;
-    console.log(scoreLeft);
-    updateGuiltLeft(leftPaddle);
-  }
-
-  ////////////// END ///////////////
 }
 
 // displayBall()
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-///////////////// NEW //////////////////
-  fill(textColor);
-  text(textBall, ball.x,ball.y);
-  textSize(ball.size);
-//////////////// END //////////////////
+  rect(ball.x,ball.y,ball.size,ball.size);
 }
 
 // displayPaddle(paddle)
@@ -313,9 +285,9 @@ function displayPaddle(paddle) {
   rect(paddle.x,paddle.y,paddle.w,paddle.h);
 }
 
-//////////////// NEW /////////////////
-function updateGuiltLeft() {
-  fill(34,139,34);
-  leftPaddle.speed = leftPaddle.speed - speedChange;
-//////////////// END //////////////////
+function ballToWinner() {
+  ball.vx = -ball.vx;
+  ball.vy = -ball.vy;
+  ball.vx += random(-speedChange,speedChange);
+  ball.vy += random(-speedChange,speedChange);
 }
