@@ -12,6 +12,9 @@ var fgColor = 255;
 ///////////// NEW //////////////
 var textColor = 255;
 var textBall = "blame";
+var speedChange = 1;
+var leftScore = 0;
+var rightScore = 0;
 ///////////// END ///////////////
 
 // Basic definition of a ball object with its key properties of
@@ -277,6 +280,19 @@ function handleBallOffScreen() {
     // position is reset.
     // This is where we would count points etc!
   }
+  ////////////// NEW /////////////////
+  if (ballRight < 0) {
+    scoreRight = scoreRight + 1;
+    console.log(scoreRight);
+
+  }
+  if (ballLeft > width) {
+    scoreLeft = scoreLeft + 1;
+    console.log(scoreLeft);
+    updateGuiltLeft(leftPaddle);
+  }
+
+  ////////////// END ///////////////
 }
 
 // displayBall()
@@ -295,4 +311,11 @@ function displayBall() {
 // Draws the specified paddle on screen based on its properties
 function displayPaddle(paddle) {
   rect(paddle.x,paddle.y,paddle.w,paddle.h);
+}
+
+//////////////// NEW /////////////////
+function updateGuiltLeft() {
+  fill(34,139,34);
+  leftPaddle.speed = leftPaddle.speed - speedChange;
+//////////////// END //////////////////
 }
