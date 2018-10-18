@@ -65,14 +65,19 @@ var rightPaddle = {
 }
 
 // A variable to hold the beep sound we will play on bouncing
-var beepSFX;
+
+/////////////// NEW /////////////////
+var errorSFX;
+var endingSFX;
 
 // preload()
 //
 // Loads the beep audio for the sound of bouncing
 function preload() {
-  beepSFX = new Audio("assets/sounds/beep.wav");
+  errorSFX = new Audio("assets/sounds/error.wav");
+  endingSFX = new Audio("assets/sounds/ending.wav");
 }
+///////////////// END ////////////////////
 
 // setup()
 //
@@ -213,8 +218,8 @@ function handleBallWallCollision() {
     // If it touched the top or bottom, reverse its vy
     ball.vy = -ball.vy;
     // Play our bouncing sound effect by rewinding and then playing
-    beepSFX.currentTime = 0;
-    beepSFX.play();
+    errorSFX.currentTime = 0;
+    errorSFX.play();
   }
 }
 
@@ -243,8 +248,8 @@ function handleBallPaddleCollision(paddle) {
       // Then the ball is touching the paddle so reverse its vx
       ball.vx = -ball.vx;
       // Play our bouncing sound effect by rewinding and then playing
-      beepSFX.currentTime = 0;
-      beepSFX.play();
+      errorSFX.currentTime = 0;
+      errorSFX.play();
     }
   }
 }
@@ -274,13 +279,12 @@ function handleBallOffScreen() {
   }
 
   if (ballRight < 0) {
-  rightPaddle.h = rightPaddle.h - 10
+    rightPaddle.h = rightPaddle.h - 10;
 
   }
   if (ballLeft > width) {
-  leftPaddle.h = leftPaddle.h + 10
-}
-
+    leftPaddle.h = leftPaddle.h + 20;
+  }
 }
 
 // displayBall()
@@ -299,13 +303,31 @@ function displayPaddleLeft() {
   fill(0,255,0);
   rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
 }
+
 function displayPaddleRight() {
   fill(255,0,0);
   rect(rightPaddle.x,rightPaddle.y,rightPaddle.w,rightPaddle.h);
+
+  if (rightPaddle.h < 1) {
+    displayEnding();
+  }
 }
+
 function reset() {
   ball.vx = -ball.vx;
   ball.vy = -ball.vy;
   ball.vx += random(-speedChange,speedChange);
   ball.vy += random(-speedChange,speedChange);
 }
+
+function displayEnding() {
+  var endingText = "Why didn't you talk to anyone? Why didn't you get help?"
+  var endingTextTwo = "Hello?"
+  background(0);
+  fill(255);
+  text(endingText,width/8,height/2);
+  text(endingTextTwo,width-100,height-100);
+  endingSFX.play();
+
+}
+//////////////////// END ////////////////////////
