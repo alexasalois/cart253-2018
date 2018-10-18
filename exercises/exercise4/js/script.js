@@ -9,16 +9,22 @@ var bgColor = 0;
 var fgColor = 255;
 
 // BALL
+///////////// NEW //////////////
+var textColor = 255;
+var textBall = "blame";
+///////////// END ///////////////
 
 // Basic definition of a ball object with its key properties of
 // position, size, velocity, and speed
 var ball = {
   x: 0,
   y: 0,
-  size: 20,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 5,
+  //////////////// NEW //////////////////
+  size: 25
+  /////////////// END //////////////////
 }
 
 // PADDLES
@@ -60,6 +66,11 @@ var rightPaddle = {
 
 // A variable to hold the beep sound we will play on bouncing
 var beepSFX;
+
+////////////// NEW ///////////////
+var scoreLeft = 0;
+var scoreRight = 0;
+///////////// END ////////////////
 
 // preload()
 //
@@ -105,6 +116,10 @@ function setupBall() {
   ball.y = height/2;
   ball.vx = ball.speed;
   ball.vy = ball.speed;
+}
+
+//////////////////// NEW /////////////////////
+function scoreCounter() {
 }
 
 // draw()
@@ -268,7 +283,11 @@ function handleBallOffScreen() {
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-  rect(ball.x,ball.y,ball.size,ball.size);
+///////////////// NEW //////////////////
+  fill(textColor);
+  text(textBall, ball.x,ball.y);
+  textSize(ball.size);
+//////////////// END //////////////////
 }
 
 // displayPaddle(paddle)
