@@ -122,9 +122,13 @@ function setupBall() {
 // draw()
 //
 // Calls the appropriate functions to run the game
+
+////////////////////// NEW //////////////////////
 function draw() {
   // Fill the background
+  bgColor = map(rightPaddle.y,0,600,255,0);
   background(bgColor);
+///////////////////// END ///////////////////////
 
   // Handle input
   // Notice how we're using the SAME FUNCTION to handle the input
@@ -274,7 +278,7 @@ function handleBallOffScreen() {
     // position is reset.
     // This is where we would count points etc!
 
-  /////////////// NEW /////////////////
+  //////////////////////// NEW ////////////////////////////
     reset();
   }
 
@@ -334,7 +338,12 @@ function displayEnding() {
   text(endingTextTwo,width-100,height-100);
   fill(255,0,0);
   text(number, width/3,height/6);
+  ball.vx = 0;
+  ball.vy = 0;
+  ball.x = 0;
+  ball.y = 0;
   endingSFX.play();
+  errorSFX.stop();
 }
 
 function displayAlternateEnding() {
@@ -344,11 +353,12 @@ function displayAlternateEnding() {
   fill(0);
   text(alternateText, width/10,height/2);
   text(alternateTextTwo, width/2,height-100);
-  ball.x = 0;
+  ball.x = 5;
   ball.y = 0
   ball.vx = 0;
   ball.vy = 0;
-  rightPaddle.x = 0
+  rightPaddle.x = 0;
+  errorSFX.stop();
 }
 
 
