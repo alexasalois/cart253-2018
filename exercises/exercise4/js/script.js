@@ -302,6 +302,10 @@ function displayBall() {
 function displayPaddleLeft() {
   fill(0,255,0);
   rect(leftPaddle.x,leftPaddle.y,leftPaddle.w,leftPaddle.h);
+
+  if (leftPaddle.h > 260) {
+    displayAlternateEnding();
+  }
 }
 
 function displayPaddleRight() {
@@ -323,11 +327,29 @@ function reset() {
 function displayEnding() {
   var endingText = "Why didn't you talk to anyone? Why didn't you get help?"
   var endingTextTwo = "Hello?"
+  var number = "1-866-277-3553"
   background(0);
   fill(255);
   text(endingText,width/8,height/2);
   text(endingTextTwo,width-100,height-100);
+  fill(255,0,0);
+  text(number, width/3,height/6);
   endingSFX.play();
-
 }
+
+function displayAlternateEnding() {
+  var alternateText = "Congratulations on taking the first step towards getting better."
+  var alternateTextTwo = "We can get through this."
+  background(255);
+  fill(0);
+  text(alternateText, width/10,height/2);
+  text(alternateTextTwo, width/2,height-100);
+  ball.x = 0;
+  ball.y = 0
+  ball.vx = 0;
+  ball.vy = 0;
+  rightPaddle.x = 0
+}
+
+
 //////////////////// END ////////////////////////
