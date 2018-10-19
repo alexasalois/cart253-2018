@@ -11,7 +11,7 @@ var fgColor = 255;
 
 /////////////// NEW ///////////////
 var speedChange = 0.5;
-var help = "seek out help."
+var help = "seek out help.";
 ////////////// END ////////////////
 
 // BALL
@@ -283,12 +283,13 @@ function handleBallOffScreen() {
   }
 
   if (ballRight < 0) {
-    rightPaddle.h = rightPaddle.h - 10;
+    rightScore();
+  }
 
-  }
   if (ballLeft > width) {
-    leftPaddle.h = leftPaddle.h + 20;
+    leftScore();
   }
+
 }
 
 // displayBall()
@@ -324,14 +325,13 @@ function displayPaddleRight() {
 function reset() {
   ball.vx = -ball.vx;
   ball.vy = -ball.vy;
-  ball.vx += random(-speedChange,speedChange);
   ball.vy += random(-speedChange,speedChange);
 }
 
 function displayEnding() {
-  var endingText = "Why didn't you talk to anyone? Why didn't you get help?"
-  var endingTextTwo = "Hello?"
-  var number = "1-866-277-3553"
+  var endingText = "Why didn't you talk to anyone? Why didn't you get help?";
+  var endingTextTwo = "Hello?";
+  var number = "1-866-277-3553";
   background(0);
   fill(255);
   text(endingText,width/8,height/2);
@@ -347,19 +347,25 @@ function displayEnding() {
 }
 
 function displayAlternateEnding() {
-  var alternateText = "Congratulations on taking the first step towards getting better."
-  var alternateTextTwo = "We can get through this."
+  var alternateText = "Congratulations on taking the first step towards getting better.";
+  var alternateTextTwo = "We can get through this.";
   background(255);
   fill(0);
   text(alternateText, width/10,height/2);
   text(alternateTextTwo, width/2,height-100);
   ball.x = 5;
-  ball.y = 0
+  ball.y = 0;
   ball.vx = 0;
   ball.vy = 0;
   rightPaddle.x = 0;
   errorSFX.stop();
 }
 
+function rightScore() {
+  rightPaddle.h = rightPaddle.h - 10;
+}
 
+function leftScore() {
+  leftPaddle.h = leftPaddle.h + 20;
+}
 //////////////////// END ////////////////////////
