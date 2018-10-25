@@ -53,13 +53,13 @@ function draw() {
   if (ball.isOffScreen()) {
 
     ///////////// NEW ////////////////
-      if (this.x + this.size < 0) {
-        scoreRight += scoreRight;
+      if (ball.x + ball.size < 0) {
+        scoreRight = scoreRight + 1;
         console.log(scoreRight);
       }
 
-      if (this.x > width) {
-        scoreLeft += scoreLeft;
+      if (ball.x > width) {
+        scoreLeft = scoreLeft + 1;
         console.log(scoreLeft);
       }
     ///////////// END ///////////////
