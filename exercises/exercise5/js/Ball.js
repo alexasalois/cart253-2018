@@ -34,7 +34,6 @@ Ball.prototype.update = function () {
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
   }
-
 }
 
 // isOffScreen()
@@ -49,24 +48,6 @@ Ball.prototype.isOffScreen = function () {
   else {
     return false;
   }
-
-///////////// NEW ////////////////
-
-  var scoreRight = 0;
-  var scoreLeft = 0;
-
-  if (this.x + this.size < 0) {
-    scoreRight += scoreRight;
-    console.log(scoreRight);
-  }
-
-  if (this.x > width) {
-    scoreLeft += scoreLeft;
-    console.log(scoreLeft);
-  }
-
-///////////// END ///////////////
-
 }
 
 // display()
@@ -89,10 +70,14 @@ Ball.prototype.display = function () {
 // Check if this ball overlaps the paddle passed as an argument
 // and if so reverse x velocity to bounce
 Ball.prototype.handleCollision = function(paddle) {
+
   // Check if the ball overlaps the paddle on x axis
-  if (this.x + this.size > paddle.x && this.x < paddle.x + paddle.w) {
+/////////////// NEW ////////////////
+  if (this.x + this.size > paddle.x && this.x + this.size < paddle.x + paddle.w) {
     // Check if the ball overlaps the paddle on y axis
     if (this.y + this.size > paddle.y && this.y < paddle.y + paddle.h) {
+////////////// END ////////////////
+
       // If so, move ball back to previous position (by subtracting current velocity)
       this.x -= this.vx;
       this.y -= this.vy;

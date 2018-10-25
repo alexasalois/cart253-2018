@@ -14,6 +14,11 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+/////////////// NEW ///////////////
+var scoreRight = 0;
+var scoreLeft = 0;
+/////////////// END ///////////////
+
 // setup()
 //
 // Creates the ball and paddles
@@ -22,10 +27,13 @@ function setup() {
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
+
+  ///////////////// NEW (just the color) //////////////////
+  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,color(255,0,0));
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
+  leftPaddle = new Paddle(0,height/2,10,60,10,83,87,color(0,255,0));
+  //////////////// END ////////////////////
 }
 
 // draw()
@@ -43,6 +51,19 @@ function draw() {
   rightPaddle.update();
 
   if (ball.isOffScreen()) {
+
+    ///////////// NEW ////////////////
+      if (this.x + this.size < 0) {
+        scoreRight += scoreRight;
+        console.log(scoreRight);
+      }
+
+      if (this.x > width) {
+        scoreLeft += scoreLeft;
+        console.log(scoreLeft);
+      }
+    ///////////// END ///////////////
+
     ball.reset();
   }
 

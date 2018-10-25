@@ -12,7 +12,7 @@
 //  paddles.push(new Paddle(this.x,this.y,this.vs,this.vy,this.w,this.h));
 //  paddles.push(new Paddle(this.x,this.y,this.vs,this.vy,this.w,this.h));
 
-function Paddle(x,y,w,h,speed,downKey,upKey) {
+function Paddle(x,y,w,h,speed,downKey,upKey,color) {
   this.x = x;
   this.y = y;
   this.vx = 0;
@@ -22,6 +22,7 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  this.color = color;
 }
 
 // handleInput()
@@ -52,6 +53,6 @@ Paddle.prototype.update = function() {
 //
 // Draw the paddle as a rectangle on the screen
 Paddle.prototype.display = function() {
-  fill(255);
+  fill(this.color);
   rect(this.x,this.y,this.w,this.h);
 }
