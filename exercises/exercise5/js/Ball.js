@@ -22,6 +22,7 @@ function Ball(x,y,vx,vy,size,speed) {
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
 Ball.prototype.update = function () {
+
   // Update position with velocity
   this.x += this.vx;
   this.y += this.vy;
@@ -33,6 +34,7 @@ Ball.prototype.update = function () {
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
   }
+
 }
 
 // isOffScreen()
@@ -47,15 +49,40 @@ Ball.prototype.isOffScreen = function () {
   else {
     return false;
   }
+
+///////////// NEW ////////////////
+
+  var scoreRight = 0;
+  var scoreLeft = 0;
+
+  if (this.x + this.size < 0) {
+    scoreRight += scoreRight;
+    console.log(scoreRight);
+  }
+
+  if (this.x > width) {
+    scoreLeft += scoreLeft;
+    console.log(scoreLeft);
+  }
+
+///////////// END ///////////////
+
 }
 
 // display()
 //
 // Draw the ball as a rectangle on the screen
+
+
+//////////////// NEW /////////////////
 Ball.prototype.display = function () {
+  var ballText = "tell someone.";
+
   fill(255);
-  rect(this.x,this.y,this.size,this.size);
+  text(ballText,this.x,this.y);
+  textSize(this.size);
 }
+/////////////// END /////////////////
 
 // handleCollision(paddle)
 //

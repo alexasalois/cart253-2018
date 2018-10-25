@@ -1,5 +1,5 @@
-// Basic OO Pong
-// by Pippin Barr
+// Basic OO Pong - Modified
+// by Pippin Barr & Alexandra Salois
 //
 // A primitive implementation of Pong with no scoring system
 // just the ability to play the game with the keyboard.
