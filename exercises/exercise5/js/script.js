@@ -17,7 +17,7 @@ var rightPaddle;
 /////////////// NEW ///////////////
 var scoreRight = 0;
 var scoreLeft = 0;
-var speedChange = 8;
+var speedChange = 6;
 /////////////// END ///////////////
 
 // setup()
@@ -25,6 +25,10 @@ var speedChange = 8;
 // Creates the ball and paddles
 function setup() {
   createCanvas(640,480);
+  textFont("VT323");
+  startX = width/2;
+  startY = height/2;
+
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
@@ -37,12 +41,22 @@ function setup() {
   //////////////// END ////////////////////
 }
 
+//////////////// NEW //////////////////
+function displayScore() {
+  text("This is the\n" + scoreLeft + "\nth time, please do something.",width/4,height/6);
+}
+/////////////// END /////////////////
+
 // draw()
 //
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
   background(0);
+
+  ////////////// NEW //////////////
+  displayScore();
+  ////////////// END ////////////////
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
@@ -60,7 +74,7 @@ function draw() {
         rightPaddle.h = rightPaddle.h - 10;
         ball.vx = -ball.vx;
         ball.vy = random(speedChange, -speedChange);
-        console.log(ball.vy);
+        ball.size = ball.size - 5;
       }
 
       if (ball.x > width) {
@@ -69,7 +83,8 @@ function draw() {
         leftPaddle.h = leftPaddle.h + 10;
         ball.vx = -ball.vx
         ball.vy = random(speedChange,-speedChange);
-        console.log(ball.vy);
+        ball.size = ball.size + 15;
+
       }
     /////////////// END /////////////////
 

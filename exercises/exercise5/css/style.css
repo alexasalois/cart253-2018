@@ -6,7 +6,9 @@ so the canvas is flush with the top left corner.
 
 **********************************************/
 
+
 body {
   padding: 0;
   margin: 0;
+  font-family: 'VT323', monospace;
 }
