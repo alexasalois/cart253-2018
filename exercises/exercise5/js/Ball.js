@@ -72,11 +72,11 @@ Ball.prototype.display = function () {
 Ball.prototype.handleCollision = function(paddle) {
 
   // Check if the ball overlaps the paddle on x axis
-/////////////// NEW ////////////////
+  /////////////// NEW ////////////////
   if (this.x + this.size > paddle.x && this.x + this.size < paddle.x + paddle.w) {
     // Check if the ball overlaps the paddle on y axis
     if (this.y + this.size > paddle.y && this.y < paddle.y + paddle.h) {
-////////////// END ////////////////
+  ////////////// END ////////////////
 
       // If so, move ball back to previous position (by subtracting current velocity)
       this.x -= this.vx;
@@ -84,7 +84,9 @@ Ball.prototype.handleCollision = function(paddle) {
       // Reverse x velocity to bounce
       this.vx = -this.vx;
 
+      /////////////// NEW ////////////////
       boopSound.play();
+      /////////////// END //////////////////
 
     }
   }

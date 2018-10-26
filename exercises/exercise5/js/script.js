@@ -21,22 +21,25 @@ var speedChange = 6;
 var boopSound;
 var endSound;
 var aliveSound;
-/////////////// END ///////////////
 
 function preload() {
   boopSound = new Audio("../assets/sounds/boop.wav");
   endSound = new Audio("../assets/sounds/end.wav");
   aliveSound = new Audio("../assets/sounds/alive.wav");
 }
+/////////////// END ///////////////
 
 // setup()
 //
 // Creates the ball and paddles
 function setup() {
   createCanvas(640,480);
+
+  ////////////// NEW ////////////////
   textFont("VT323");
   startX = width/2;
   startY = height/2;
+  ///////////// END ////////////////
 
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
@@ -104,6 +107,7 @@ function draw() {
   ball.handleCollision(rightPaddle);
   ball.display();
 
+  /////////////////// NEW ////////////////////
   if (leftPaddle.h > 130) {
     background(0);
     fill(255);
@@ -116,10 +120,12 @@ function draw() {
     ball.vy = 0;
     aliveSound.play();
   }
+  /////////////////// END /////////////////////
 
 
   leftPaddle.display();
 
+  /////////////////// NEW //////////////////////
   if (rightPaddle.h === 0) {
     background(0);
     fill(255);
@@ -132,5 +138,7 @@ function draw() {
     ball.vy = 0;
     endSound.play();
   }
+//////////////////// END //////////////////////
+
     rightPaddle.display();
   }
