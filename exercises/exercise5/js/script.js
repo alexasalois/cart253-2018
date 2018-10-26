@@ -18,7 +18,16 @@ var rightPaddle;
 var scoreRight = 0;
 var scoreLeft = 0;
 var speedChange = 6;
+var boopSound;
+var endSound;
+var aliveSound;
 /////////////// END ///////////////
+
+function preload() {
+  boopSound = new Audio("../assets/sounds/boop.wav");
+  endSound = new Audio("../assets/sounds/end.wav");
+  aliveSound = new Audio("../assets/sounds/alive.wav");
+}
 
 // setup()
 //
@@ -43,7 +52,7 @@ function setup() {
 
 //////////////// NEW //////////////////
 function displayScore() {
-  text("This is the\n" + scoreLeft + "\nth time, please do something.",width/4,height/6);
+  text("You said no\n" + scoreRight + "\n times, please do something.",width/4,height/6);
 }
 /////////////// END /////////////////
 
@@ -81,7 +90,7 @@ function draw() {
         scoreLeft = scoreLeft + 1;
         console.log(scoreLeft);
         leftPaddle.h = leftPaddle.h + 10;
-        ball.vx = -ball.vx
+        ball.vx = -ball.vx;
         ball.vy = random(speedChange,-speedChange);
         ball.size = ball.size + 15;
 
@@ -94,6 +103,34 @@ function draw() {
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
   ball.display();
+
+  if (leftPaddle.h > 130) {
+    background(0);
+    fill(255);
+    textSize(40);
+    text("We're so proud of you.",100,height/2);
+    fill(255,0,0);
+    textSize(35);
+    text("It will get better: 1 866-277-3553", width/9,height-100);
+    ball.vx = 0;
+    ball.vy = 0;
+    aliveSound.play();
+  }
+
+
   leftPaddle.display();
+
+  if (rightPaddle.h === 0) {
+    background(0);
+    fill(255);
+    textSize(40);
+    text("Why didn't you do anything?",100, height/2);
+    fill(255,0,0);
+    textSize(30);
+    text("Please, we are here for you: 1 866-277-3553", width/9,height-100);
+    ball.vx = 0;
+    ball.vy = 0;
+    endSound.play();
+  }
   rightPaddle.display();
 }

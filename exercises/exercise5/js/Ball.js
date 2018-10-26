@@ -83,6 +83,9 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+
+      boopSound.play();
+
     }
   }
 }
