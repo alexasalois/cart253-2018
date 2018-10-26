@@ -17,6 +17,7 @@ var rightPaddle;
 /////////////// NEW ///////////////
 var scoreRight = 0;
 var scoreLeft = 0;
+var speedChange = 8;
 /////////////// END ///////////////
 
 // setup()
@@ -58,6 +59,8 @@ function draw() {
         console.log(scoreRight);
         rightPaddle.h = rightPaddle.h - 10;
         ball.vx = -ball.vx;
+        ball.vy = random(speedChange, -speedChange);
+        console.log(ball.vy);
       }
 
       if (ball.x > width) {
@@ -65,9 +68,8 @@ function draw() {
         console.log(scoreLeft);
         leftPaddle.h = leftPaddle.h + 10;
         ball.vx = -ball.vx
-    //  }
-    //  else {
-    //    -ball.vx = ball.vx
+        ball.vy = random(speedChange,-speedChange);
+        console.log(ball.vy);
       }
     /////////////// END /////////////////
 
