@@ -52,7 +52,7 @@ function setup() {
 
 //////////////// NEW //////////////////
 function displayScore() {
-  text("You said no\n" + scoreRight + "\n times, please do something.",width/4,height/6);
+  text("You avoided help\n" + scoreRight + "\n times, please do something.",width/4,height/6);
 }
 /////////////// END /////////////////
 
@@ -132,5 +132,5 @@ function draw() {
     ball.vy = 0;
     endSound.play();
   }
-  rightPaddle.display();
-}
+    rightPaddle.display();
+  }
