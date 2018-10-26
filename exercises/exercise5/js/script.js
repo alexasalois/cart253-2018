@@ -57,12 +57,17 @@ function draw() {
         scoreRight = scoreRight + 1;
         console.log(scoreRight);
         rightPaddle.h = rightPaddle.h - 10;
+        ball.vx = -ball.vx;
       }
 
       if (ball.x > width) {
         scoreLeft = scoreLeft + 1;
         console.log(scoreLeft);
         leftPaddle.h = leftPaddle.h + 10;
+        ball.vx = -ball.vx
+    //  }
+    //  else {
+    //    -ball.vx = ball.vx
       }
     /////////////// END /////////////////
 
@@ -71,11 +76,7 @@ function draw() {
 
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
-
   ball.display();
-
   leftPaddle.display();
-    //////////////// END /////////////////
-
   rightPaddle.display();
 }
