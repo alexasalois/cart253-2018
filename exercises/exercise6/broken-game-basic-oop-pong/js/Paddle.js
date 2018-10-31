@@ -29,6 +29,9 @@ Paddle.prototype.handleInput = function() {
   else if (keyIsDown(this.downKey)) {
     this.vy = this.speed;
   }
+  else {
+    this.vy = 0;
+  }
 }
 
 // update()
@@ -36,7 +39,7 @@ Paddle.prototype.handleInput = function() {
 // Constrain the resulting position to be within the canvas
 Paddle.prototype.update = function() {
   this.y += this.vy;
-  this.y = constrain(this.y,0,height-this.h); ///////////////////////////////////////////////////
+  this.y = constrain(this.y,0,height-this.h);
 }
 
 // display()
