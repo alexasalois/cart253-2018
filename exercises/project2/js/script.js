@@ -53,13 +53,11 @@ function draw() {
 
     ///////////////////// NEW /////////////////////
     if (ball.isOffScreenRight()) {
-      scoreLeft = scoreLeft + 1;
-      console.log(scoreLeft);
+      ball.updateScoreLeft();
     }
 
-    if (ball.isOffScreenLeft()) {
-      scoreRight = scoreRight + 1;
-      console.log(scoreRight);
+    else if (ball.isOffScreenLeft()) {
+      ball.updateScoreRight();
     }
     //////////////////// END //////////////////////
 

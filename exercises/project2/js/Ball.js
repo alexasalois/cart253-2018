@@ -67,6 +67,15 @@ Ball.prototype.isOffScreenLeft = function () {
     return false;
   }
 }
+
+Ball.prototype.updateScoreLeft = function () {
+  scoreLeft = scoreLeft + 1;
+}
+
+Ball.prototype.updateScoreRight = function () {
+  scoreRight = scoreRight + 1;
+}
+
 /////////////////// END /////////////////////
 
 // display()
@@ -75,6 +84,11 @@ Ball.prototype.isOffScreenLeft = function () {
 Ball.prototype.display = function () {
   fill(255);
   rect(this.x,this.y,this.size,this.size);
+
+  textFont("Monoton");
+  textSize(30);
+  text(scoreRight,width-55,height-440);
+  text(scoreLeft,width-610,height-440);
 }
 
 // handleCollision(paddle)

@@ -6,6 +6,12 @@ so the canvas is flush with the top left corner.
 
 **********************************************/
 
+
+/**************** NEW *****************/
+* { font-family: 'Monoton', cursive;
+}
+/**************** END ******************/
+
 body {
   padding: 0;
   margin: 0;
