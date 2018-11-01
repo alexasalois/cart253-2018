@@ -14,6 +14,13 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+/////////////////// NEW //////////////////////
+var scoreLeft = 0;
+var scoreRight = 0;
+
+/////////////////// END ///////////////////////
+
+
 // setup()
 //
 // Creates the ball and paddles
@@ -43,6 +50,19 @@ function draw() {
   rightPaddle.update();
 
   if (ball.isOffScreen()) {
+
+    ///////////////////// NEW /////////////////////
+    if (ball.isOffScreenRight()) {
+      scoreLeft = scoreLeft + 1;
+      console.log(scoreLeft);
+    }
+
+    if (ball.isOffScreenLeft()) {
+      scoreRight = scoreRight + 1;
+      console.log(scoreRight);
+    }
+    //////////////////// END //////////////////////
+
     ball.reset();
   }
 

@@ -49,6 +49,26 @@ Ball.prototype.isOffScreen = function () {
   }
 }
 
+/////////////////// NEW //////////////////////
+Ball.prototype.isOffScreenRight = function () {
+  if (this.x > width) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+Ball.prototype.isOffScreenLeft = function () {
+  if (this.x + this.size < 0) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+/////////////////// END /////////////////////
+
 // display()
 //
 // Draw the ball as a rectangle on the screen
