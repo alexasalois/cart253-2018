@@ -67,6 +67,10 @@ function draw() {
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
 
+  ///////////////////// NEW ///////////////////////
+  ball.displayScore();
+  //////////////////// END ////////////////////////
+  
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
