@@ -17,8 +17,19 @@ var rightPaddle;
 /////////////////// NEW //////////////////////
 var scoreLeft = 0;
 var scoreRight = 0;
+var potatoBall;
+var welcomeText = "HOT POTATO PONG";
+var instructionsText = "Don't let the potato fall! Or someone gets hurt...";
+var startText = "Press spacebar to begin!";
 
-/////////////////// END ///////////////////////
+
+// preload()
+//
+function preload() {
+  ovenBg = loadImage("assets/images/oven.png");
+  potatoBall = loadImage("assets/images/potato.png");
+}
+////////////////// END ////////////////////
 
 
 // setup()
@@ -27,7 +38,7 @@ var scoreRight = 0;
 function setup() {
   createCanvas(640,480);
   // Create a ball
-  ball = new Ball(width/2,height/2,5,5,10,5);
+  ball = new Ball(width/2,height/2,5,5,50,5);
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
@@ -40,7 +51,12 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(0);
+
+  //////////////// NEW /////////////////
+  background(ovenBg);
+
+  displayBeginning();
+  /////////////// END //////////////////
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
@@ -70,8 +86,26 @@ function draw() {
   ///////////////////// NEW ///////////////////////
   ball.displayScore();
   //////////////////// END ////////////////////////
-  
+
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+}
+
+function displayBeginning() {
+  background(ovenBg);
+  fill(255);
+  textSize(50);
+  text(welcomeText,width/12,height/2);
+  textSize(20);
+  text(instructionsText,width/20,height-200);
+  textSize(30);
+  text(startText,width/6,height-100);
+
+  if (keyIsDown(32)) {
+    displayBeginning() = false;
+  }
+    else {
+      true;
+  }
 }

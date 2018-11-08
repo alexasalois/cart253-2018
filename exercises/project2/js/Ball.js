@@ -80,10 +80,14 @@ Ball.prototype.updateScoreRight = function () {
 // display()
 //
 // Draw the ball as a rectangle on the screen
+
+////////////////// NEW (just the image) //////////////////
 Ball.prototype.display = function () {
-  fill(255);
-  rect(this.x,this.y,this.size,this.size);
+  //fill(255);
+  //rect(this.x,this.y,this.size,this.size);
+  image(potatoBall,this.x,this.y,this.size,this.size);
 }
+///////////////// END ////////////////////
 
 /////////////////// NEW ////////////////////
 Ball.prototype.displayScore = function () {
