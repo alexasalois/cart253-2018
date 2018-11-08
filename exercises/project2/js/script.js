@@ -124,14 +124,18 @@ background(ovenBg);
       if (ball.isOffScreenRight()) {
       ball.updateScoreLeft();
         if (scoreLeft % 2 == 0) {
-          fires.push(new fireEnemySpawn(random(width),random(height),5,5,20,20,10))
+          fires.push(new fireEnemySpawn(random(width),random(height),5,5,65,10))
         }
       }
 
       else if (ball.isOffScreenLeft()) {
       ball.updateScoreRight();
+        if (scoreRight % 2 == 0) {
+          fires.push(new fireEnemySpawn(random(width),random(height),5,5,65,10))
+        }
       }
       //////////////////// END //////////////////////
+
       ball.reset();
       }
 
