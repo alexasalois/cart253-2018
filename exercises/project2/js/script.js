@@ -93,7 +93,6 @@ function draw() {
 background(ovenBg);
 
   if (gameOver == false) {
-    console.log("start");
     checkScore();
     if (rightSnowflakeActive == true) {
 
@@ -101,7 +100,6 @@ background(ovenBg);
         snowflakeRight[i].display();
         snowflakeRight[i].update();
         snowflakeRight[i].handleCollision();
-        console.log('detecting collision');
         }
       }
 
@@ -112,8 +110,6 @@ background(ovenBg);
         snowflakeLeft[i].update();
       }
     }
-
-
   /////////////// END //////////////////
 
   leftPaddle.handleInput();

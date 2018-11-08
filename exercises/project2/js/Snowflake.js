@@ -30,10 +30,10 @@ Snowflake.prototype.display = function() {
 }
 
 Snowflake.prototype.handleCollision = function() {
-  console.log("handlecollision")
   var d = dist(this.x,this.y,ball.x,ball.y)
   if (d < ball.size/2 + this.size/2) {
-    ball.vx = ball.vx/1.5;
-    console.log("speed?");
+    ball.vy = ball.vy/1.25;
+    this.x = 0;
+    this.y = 0;
   }
 }
