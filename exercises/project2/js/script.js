@@ -25,6 +25,11 @@ var coldHelp;
 var welcomeText = "HOT POTATO PONG";
 var instructionsText = "Don't let the potato fall! Or someone gets hurt...";
 var startText = "Press spacebar to begin!";
+var endText = "OUCH!";
+var endTextRestart= "Press spacebar to try again!";
+var gameOver;
+var showTitleScreen= true;
+var showEndScreen= false;
 
 
 // preload()
@@ -60,9 +65,13 @@ function setup() {
 function draw() {
 
   //////////////// NEW /////////////////
+
+  if (gameOver == false) {
+    console.log("start");
+    checkScore();
+
   background(ovenBg);
 
-  //displayBeginning();
   /////////////// END //////////////////
 
   leftPaddle.handleInput();
@@ -97,19 +106,79 @@ function draw() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+  }
+
+  else if (showTitleScreen == true) {
+    displayBeginning();
+  }
+
+  else {
+    displayEnding();
+  }
+
+  ////////////////// NEW ////////////////////
 }
 
-//function displayBeginning() {
-//  background(ovenBg);
-//  fill(255);
-//  textSize(50);
-//  text(welcomeText,width/12,height/2);
-//  textSize(20);
-//  text(instructionsText,width/20,height-200);
-//  textSize(30);
-//  text(startText,width/6,height-100);
+function displayBeginning() {
+  background(ovenBg);
+  textFont("Monoton");
+  fill(255);
+  textSize(50);
+  text(welcomeText,width/12,height/2);
+  textSize(20);
+  text(instructionsText,width/20,height-200);
+  textSize(30);
+  text(startText,width/6,height-100);
+  gameOver = true;
+  showTitleScreen = true;
+}
 
-//  if (keyIsDown(32)) {
-//    displayBeginning() = false;
-//  }
-//}
+function displayEnding() {
+  ball.vx = 0;
+  ball.vy = 0;
+  background(ovenBg);
+  fill(255);
+  textSize(50);
+  text(endText,width/3,height/2);
+  textSize(20);
+  text("You tossed it "+(scoreLeft+scoreRight)+" times before dropping it.",width/10,height-200);
+  textSize(30);
+  text(endTextRestart,width/10,height-100);
+  gameOver = true;
+}
+
+function keyPressed() {
+  if (showTitleScreen == true) {
+    if (keyCode == 32) {
+      gameOver = false;
+      showEndScreen = false;
+      showTitleScreen = false;
+    }
+  }
+  if (showEndScreen == true) {
+    if (keyCode == 32) {
+      reset();
+    }
+  }
+}
+
+function reset() {
+  ball.vx = 5;
+  ball.vy = 5;
+  gameOver = false;
+  showEndScreen = false;
+  showTitleScreen = false;
+  leftPaddle.y = height/2;
+  rightPaddle.y = height/2;
+  console.log("reset");
+  scoreLeft = 0;
+  scoreRight = 0;
+}
+
+function checkScore() {
+  if (scoreLeft > 2 || scoreRight > 2) {
+    gameOver = true;
+    showEndScreen = true;
+  }
+}
+//////////////////// END /////////////////////

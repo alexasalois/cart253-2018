@@ -93,6 +93,7 @@ Ball.prototype.display = function () {
 
 /////////////////// NEW ////////////////////
 Ball.prototype.displayScore = function () {
+  fill(255);
   text(scoreRight,width-55,height-440);
   text(scoreLeft,width-610,height-440);
   textFont("Monoton");
