@@ -46,7 +46,7 @@ var rightSnowflakeActive = false;
 var leftSnowflakeActive = false;
 
 // var for fire array
-var fireEnemySpawn = [];
+var fires = [];
 var fireEnemySpawnActive = false;
 
 // var for SFX
@@ -96,7 +96,7 @@ background(ovenBg);
     console.log("start");
     checkScore();
     if (rightSnowflakeActive == true) {
-      ;
+
       for (var i = 0; i < snowflakeRight.length; i++) {
         snowflakeRight[i].display();
         snowflakeRight[i].update();
@@ -106,7 +106,7 @@ background(ovenBg);
       }
 
     if (leftSnowflakeActive == true) {
-      ;
+
       for (var i = 0; i < snowflakeLeft.length; i++) {
         snowflakeLeft[i].display();
         snowflakeLeft[i].update();
@@ -127,6 +127,9 @@ background(ovenBg);
       ///////////////////// NEW /////////////////////
       if (ball.isOffScreenRight()) {
       ball.updateScoreLeft();
+        if (scoreLeft % 2 == 0) {
+          fires.push(new fireEnemySpawn(random(width),random(height),5,5,20,20,10))
+        }
       }
 
       else if (ball.isOffScreenLeft()) {
@@ -141,12 +144,16 @@ background(ovenBg);
 
       ///////////////////// NEW ///////////////////////
       ball.displayScore();
-      //fire.SpawnEnemy();
       //////////////////// END ////////////////////////
 
       ball.display();
       leftPaddle.display();
       rightPaddle.display();
+
+      for (var i = 0; i < fires.length; i++) {
+        fires[i].display();
+        fires[i].update();
+        }
       }
 
   //////////////////// NEW /////////////////////////
@@ -209,12 +216,12 @@ function keyPressed() {
   if (gameOver == false) {
     if (keyCode == 37) {
       rightSnowflakeActive = true;
-      snowflakeRight.push(new Snowflake(rightPaddle.x,rightPaddle.y,-5,0,30,30,6));
+      snowflakeRight.push(new Snowflake(rightPaddle.x,rightPaddle.y,-5,25,6));
       snowflakeSFX.play();
     }
     if (keyCode == 69) {
       leftSnowflakeActive = true;
-      snowflakeLeft.push(new Snowflake(leftPaddle.x,leftPaddle.y,5,0,30,30,6));
+      snowflakeLeft.push(new Snowflake(leftPaddle.x,leftPaddle.y,5,25,6));
       snowflakeSFX.play();
     }
   }
@@ -227,7 +234,7 @@ function reset() {
   ball.vy = 5;
   snowflakeRight = [];
   snowflakeLeft = [];
-  fireEnemySpawn = [];
+  fires = [];
   gameOver = false;
   showEndScreen = false;
   showTitleScreen = false;
