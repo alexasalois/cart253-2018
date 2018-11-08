@@ -11,6 +11,7 @@ function fireEnemySpawn(x,y,vx,vy,size,speed) {
   this.vy = vy;
   this.size = size;
   this.speed = speed;
+  this.active = true;
 }
 
 // update()
@@ -19,6 +20,10 @@ function fireEnemySpawn(x,y,vx,vy,size,speed) {
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
 fireEnemySpawn.prototype.update = function () {
+  if (this.active === false) {
+    return;
+  }
+
   // Update position with velocity
   this.x += this.vx;
   this.y += this.vy;
@@ -37,11 +42,19 @@ fireEnemySpawn.prototype.update = function () {
 }
 
 fireEnemySpawn.prototype.display = function() {
+  if (this.active === false) {
+    return;
+  }
+
   image(fireEnemy,this.x,this.y,this.size,this.size);
 }
 
 
 fireEnemySpawn.prototype.spawn = function() {
+  if (this.active === false) {
+    return;
+  }
+
   if (gameOver == false) {
     if (fireEnemySpawnActive == true) {
       ;
@@ -50,5 +63,20 @@ fireEnemySpawn.prototype.spawn = function() {
         fireEnemySpawn[i].update();
         }
       }
+    }
+  }
+
+  fireEnemySpawn.prototype.handleCollision = function() {
+    if (this.active === false) {
+      return;
+    }
+
+    var d = dist(this.x,this.y,ball.x,ball.y)
+    if (d < ball.size/2 + this.size/2) {
+      ball.vy = ball.vy*1.2;
+      ball.vx = ball.vx*1.1;
+      this.x = 0;
+      this.y = 0;
+      this.active = false;
     }
   }

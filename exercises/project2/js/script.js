@@ -153,6 +153,7 @@ background(ovenBg);
       for (var i = 0; i < fires.length; i++) {
         fires[i].display();
         fires[i].update();
+        fires[i].handleCollision();
         }
       }
 
