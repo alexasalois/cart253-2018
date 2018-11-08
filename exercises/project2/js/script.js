@@ -15,25 +15,41 @@ var leftPaddle;
 var rightPaddle;
 
 /////////////////// NEW //////////////////////
+// scores of the paddles
 var scoreLeft = 0;
 var scoreRight = 0;
+
+// var of the images used
 var potatoBall;
 var ovenBg;
 var handPaddle;
 var fireEnemy;
-var coldHelp;
-var welcomeText = "HOT POTATO PONG";
+var snowflake;
+
+// var for the texts of titlescreens
+var welcomeText = "HOT  POTATO  PONG";
 var instructionsText = "Don't let the potato fall! Or someone gets hurt...";
+var controlsText = "E or left arrow to shoot!";
 var startText = "Press spacebar to begin!";
 var endText = "OUCH!";
 var endTextRestart= "Press spacebar to try again!";
+
+// var for functionning title screens
 var gameOver;
 var showTitleScreen= true;
 var showEndScreen= false;
+
+// var for snowflake arrays
 var snowflakeLeft = [];
 var snowflakeRight = [];
 var rightSnowflakeActive = false;
 var leftSnowflakeActive = false;
+
+// var for fire array
+var fireEnemySpawn = [];
+var fireEnemySpawnActive = false;
+
+// var for SFX
 var paddleHit;
 var fireSFX;
 var snowflakeSFX;
@@ -45,10 +61,10 @@ function preload() {
   potatoBall = loadImage("assets/images/potato.png");
   handPaddle = loadImage("assets/images/hand.png");
   fireEnemy = loadImage("assets/images/fire.png");
-  snowflake = loadImage("assets/images/cold.png");
+  snowflake = loadImage("assets/images/coldResized.png");
   paddleHit = new Audio("assets/sounds/paddleHit.wav");
   fireSFX = new Audio("assets/sounds/fireSFX.wav");
-  snowflakeSFX = new Audio("assets/sounds/snowflakeSFX");
+  snowflakeSFX = new Audio("assets/sounds/snowflakeSFX.wav");
 }
 ////////////////// END ////////////////////
 
@@ -73,7 +89,8 @@ function setup() {
 // and displays everything.
 function draw() {
 
-  //////////////// NEW /////////////////
+//////////////// NEW /////////////////
+background(ovenBg);
 
   if (gameOver == false) {
     console.log("start");
@@ -83,10 +100,19 @@ function draw() {
       for (var i = 0; i < snowflakeRight.length; i++) {
         snowflakeRight[i].display();
         snowflakeRight[i].update();
+        snowflakeRight[i].handleCollision();
+        console.log('detecting collision');
+        }
+      }
+
+    if (leftSnowflakeActive == true) {
+      ;
+      for (var i = 0; i < snowflakeLeft.length; i++) {
+        snowflakeLeft[i].display();
+        snowflakeLeft[i].update();
       }
     }
 
-  background(ovenBg);
 
   /////////////// END //////////////////
 
@@ -98,41 +124,39 @@ function draw() {
   rightPaddle.update();
 
   if (ball.isOffScreen()) {
-
-    ///////////////////// NEW /////////////////////
-    if (ball.isOffScreenRight()) {
+      ///////////////////// NEW /////////////////////
+      if (ball.isOffScreenRight()) {
       ball.updateScoreLeft();
-    }
+      }
 
-    else if (ball.isOffScreenLeft()) {
+      else if (ball.isOffScreenLeft()) {
       ball.updateScoreRight();
-    }
-    //////////////////// END //////////////////////
+      }
+      //////////////////// END //////////////////////
+      ball.reset();
+      }
 
-    ball.reset();
-  }
+      ball.handleCollision(leftPaddle);
+      ball.handleCollision(rightPaddle);
 
-  ball.handleCollision(leftPaddle);
-  ball.handleCollision(rightPaddle);
+      ///////////////////// NEW ///////////////////////
+      ball.displayScore();
+      //fire.SpawnEnemy();
+      //////////////////// END ////////////////////////
 
-  ///////////////////// NEW ///////////////////////
-  ball.displayScore();
-  //////////////////// END ////////////////////////
+      ball.display();
+      leftPaddle.display();
+      rightPaddle.display();
+      }
 
-  ball.display();
-  leftPaddle.display();
-  rightPaddle.display();
-  }
-
-  else if (showTitleScreen == true) {
+  //////////////////// NEW /////////////////////////
+    else if (showTitleScreen == true) {
     displayBeginning();
-  }
+    }
 
   else {
-    displayEnding();
+  displayEnding();
   }
-
-  ////////////////// NEW ////////////////////
 }
 
 function displayBeginning() {
@@ -145,6 +169,7 @@ function displayBeginning() {
   text(instructionsText,width/20,height-200);
   textSize(30);
   text(startText,width/6,height-100);
+  text(controlsText,width/6,height-50);
   gameOver = true;
   showTitleScreen = true;
 }
@@ -157,12 +182,13 @@ function displayEnding() {
   textSize(50);
   text(endText,width/3,height/2);
   textSize(20);
-  text("You tossed it "+(scoreLeft+scoreRight)+" times before dropping it.",width/10,height-200);
+  text("You dropped it "+(scoreLeft+scoreRight)+" times before it exploded.",width/10,height-200);
   textSize(30);
   text(endTextRestart,width/10,height-100);
   gameOver = true;
 }
 
+// for the title screen --> start the game
 function keyPressed() {
   if (showTitleScreen == true) {
     if (keyCode == 32) {
@@ -171,37 +197,49 @@ function keyPressed() {
       showTitleScreen = false;
     }
   }
+
+  // for the end screen --> restart the game
   if (showEndScreen == true) {
     if (keyCode == 32) {
       reset();
     }
   }
 
+  // for shooting the snowflakes (array)
   if (gameOver == false) {
     if (keyCode == 37) {
-      console.log("shoot");
       rightSnowflakeActive = true;
-      snowflakeRight.push(new Snowflake(rightPaddle.x,rightPaddle.y,-5,5,10,5));
+      snowflakeRight.push(new Snowflake(rightPaddle.x,rightPaddle.y,-5,0,30,30,6));
+      snowflakeSFX.play();
+    }
+    if (keyCode == 69) {
+      leftSnowflakeActive = true;
+      snowflakeLeft.push(new Snowflake(leftPaddle.x,leftPaddle.y,5,0,30,30,6));
+      snowflakeSFX.play();
     }
   }
 
 }
 
+// when the game restarts, put everything back to zero.
 function reset() {
   ball.vx = 5;
   ball.vy = 5;
+  snowflakeRight = [];
+  snowflakeLeft = [];
+  fireEnemySpawn = [];
   gameOver = false;
   showEndScreen = false;
   showTitleScreen = false;
   leftPaddle.y = height/2;
   rightPaddle.y = height/2;
-  console.log("reset");
   scoreLeft = 0;
   scoreRight = 0;
 }
 
+// To set up the game over and end screen conditions
 function checkScore() {
-  if (scoreLeft > 2 || scoreRight > 2) {
+  if (scoreLeft > 5 || scoreRight > 5) {
     gameOver = true;
     showEndScreen = true;
   }
