@@ -30,7 +30,13 @@ var endTextRestart= "Press spacebar to try again!";
 var gameOver;
 var showTitleScreen= true;
 var showEndScreen= false;
-
+var snowflakeLeft = [];
+var snowflakeRight = [];
+var rightSnowflakeActive = false;
+var leftSnowflakeActive = false;
+var paddleHit;
+var fireSFX;
+var snowflakeSFX;
 
 // preload()
 //
@@ -39,7 +45,10 @@ function preload() {
   potatoBall = loadImage("assets/images/potato.png");
   handPaddle = loadImage("assets/images/hand.png");
   fireEnemy = loadImage("assets/images/fire.png");
-  coldHelp = loadImage("assets/images/cold.png");
+  snowflake = loadImage("assets/images/cold.png");
+  paddleHit = new Audio("assets/sounds/paddleHit.wav");
+  fireSFX = new Audio("assets/sounds/fireSFX.wav");
+  snowflakeSFX = new Audio("assets/sounds/snowflakeSFX");
 }
 ////////////////// END ////////////////////
 
@@ -69,6 +78,13 @@ function draw() {
   if (gameOver == false) {
     console.log("start");
     checkScore();
+    if (rightSnowflakeActive == true) {
+      ;
+      for (var i = 0; i < snowflakeRight.length; i++) {
+        snowflakeRight[i].display();
+        snowflakeRight[i].update();
+      }
+    }
 
   background(ovenBg);
 
@@ -160,6 +176,15 @@ function keyPressed() {
       reset();
     }
   }
+
+  if (gameOver == false) {
+    if (keyCode == 37) {
+      console.log("shoot");
+      rightSnowflakeActive = true;
+      snowflakeRight.push(new Snowflake(rightPaddle.x,rightPaddle.y,-5,5,10,5));
+    }
+  }
+
 }
 
 function reset() {
