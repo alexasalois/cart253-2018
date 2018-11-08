@@ -18,6 +18,10 @@ var rightPaddle;
 var scoreLeft = 0;
 var scoreRight = 0;
 var potatoBall;
+var ovenBg;
+var handPaddle;
+var fireEnemy;
+var coldHelp;
 var welcomeText = "HOT POTATO PONG";
 var instructionsText = "Don't let the potato fall! Or someone gets hurt...";
 var startText = "Press spacebar to begin!";
@@ -28,6 +32,9 @@ var startText = "Press spacebar to begin!";
 function preload() {
   ovenBg = loadImage("assets/images/oven.png");
   potatoBall = loadImage("assets/images/potato.png");
+  handPaddle = loadImage("assets/images/hand.png");
+  fireEnemy = loadImage("assets/images/fire.png");
+  coldHelp = loadImage("assets/images/cold.png");
 }
 ////////////////// END ////////////////////
 
