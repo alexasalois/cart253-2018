@@ -55,7 +55,7 @@ function draw() {
   //////////////// NEW /////////////////
   background(ovenBg);
 
-  displayBeginning();
+  //displayBeginning();
   /////////////// END //////////////////
 
   leftPaddle.handleInput();
@@ -92,20 +92,17 @@ function draw() {
   rightPaddle.display();
 }
 
-function displayBeginning() {
-  background(ovenBg);
-  fill(255);
-  textSize(50);
-  text(welcomeText,width/12,height/2);
-  textSize(20);
-  text(instructionsText,width/20,height-200);
-  textSize(30);
-  text(startText,width/6,height-100);
+//function displayBeginning() {
+//  background(ovenBg);
+//  fill(255);
+//  textSize(50);
+//  text(welcomeText,width/12,height/2);
+//  textSize(20);
+//  text(instructionsText,width/20,height-200);
+//  textSize(30);
+//  text(startText,width/6,height-100);
 
-  if (keyIsDown(32)) {
-    displayBeginning() = false;
-  }
-    else {
-      true;
-  }
-}
+//  if (keyIsDown(32)) {
+//    displayBeginning() = false;
+//  }
+//}

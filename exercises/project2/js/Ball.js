@@ -70,10 +70,12 @@ Ball.prototype.isOffScreenLeft = function () {
 
 Ball.prototype.updateScoreLeft = function () {
   scoreLeft = scoreLeft + 1;
+  ball.vx = -ball.vx;
 }
 
 Ball.prototype.updateScoreRight = function () {
   scoreRight = scoreRight + 1;
+  ball.vx = -ball.vx;
 }
 /////////////////// END /////////////////////
 
