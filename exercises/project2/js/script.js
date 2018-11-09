@@ -121,6 +121,7 @@ background(ovenBg);
 
   if (ball.isOffScreen()) {
       ///////////////////// NEW /////////////////////
+
       if (ball.isOffScreenRight()) {
       ball.updateScoreLeft();
         if (scoreLeft % 2 == 0) {
@@ -143,6 +144,7 @@ background(ovenBg);
       ball.handleCollision(rightPaddle);
 
       ///////////////////// NEW ///////////////////////
+      // score is displayed on screen
       ball.displayScore();
       //////////////////// END ////////////////////////
 
@@ -167,6 +169,7 @@ background(ovenBg);
   }
 }
 
+// beginning text
 function displayBeginning() {
   background(ovenBg);
   textFont("Monoton");
@@ -182,6 +185,7 @@ function displayBeginning() {
   showTitleScreen = true;
 }
 
+// ending text
 function displayEnding() {
   ball.vx = 0;
   ball.vy = 0;
@@ -247,7 +251,7 @@ function reset() {
 
 // To set up the game over and end screen conditions
 function checkScore() {
-  if (scoreLeft > 5 || scoreRight > 5) {
+  if (scoreLeft > 10 || scoreRight > 10) {
     gameOver = true;
     showEndScreen = true;
   }
