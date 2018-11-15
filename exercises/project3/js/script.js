@@ -26,6 +26,8 @@ function preload() {
   // No images at the moment
 }
 
+///////////////////////////////////
+
 function setup() {
   createCanvas(600,600);
   noStroke();
@@ -33,25 +35,38 @@ function setup() {
   loadAvatar();
 }
 
+///////////////////////////////////
+
 function draw() {
-  movePlayer();
-  updatePlayer();
+  moveAvatar();
+  updateAvatar();
   drawAvatar();
 }
 
+///////////////////////////////////
+// Defining all the functions in "Draw"
+///////////////////////////////////
+
 function loadAvatar() {
+// Position the avatar
   playerX = width/2;
   playerY = height-100;
 }
 
+////////////////////////////////////
+
 function drawAvatar() {
+// Draw the avatar
   fill(255);
   noStroke();
   ellipseMode(RADIUS);
   ellipse(playerX,playerY,playerRadius,playerRadius);
 }
 
+/////////////////////////////////////
+
 function loadBackground() {
+// Draw the background
   background(0);
 
   // make some stars!
@@ -78,7 +93,9 @@ function loadBackground() {
   rect(0,300,width,300);
 }
 
-function movePlayer() {
+/////////////////////////////////////////
+
+function moveAvatar() {
 // make the avatar move using the arrow keys.
 
 // vertical
@@ -104,8 +121,9 @@ function movePlayer() {
   }
 }
 
-function updatePlayer() {
+//////////////////////////////////////////
+
+function updateAvatar() {
   playerX = playerX + playerVX;
   playerY = playerY + playerVY;
-  console.log(playerVX);
 }
