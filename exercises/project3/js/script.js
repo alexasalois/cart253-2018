@@ -1,11 +1,7 @@
 /******************************************************
 
-Game Prototype 1 - Testing moving avatar and triggers
+Game Prototype 1
 Alexandra Salois
-
-A character moving around, triggering various situation depending on location.
-
-Physics-based movement, keyboard controls, random movement / text spawn, screen wrap.
 
 ******************************************************/
 
@@ -18,6 +14,8 @@ var playerVY = 0;
 var playerSpeed = 6;
 var playerRadius = 20;
 var gameOver = false;
+var gameStarting = false;
+var gameState = 0;
 var objectX = 300;
 var objectY =  300;
 ///////////////////////////////////
@@ -25,7 +23,7 @@ var objectY =  300;
 // Setting up canvas and design of location
 
 function preload() {
-  // No images at the moment
+  firstBackgroundImage = loadImage("assets/images/firstBackground.jpg")
 }
 
 ///////////////////////////////////
@@ -43,9 +41,21 @@ function setup() {
 function draw() {
 
   if (gameOver == false) {
+//  background(firstBackground);
+
+switch(gameState) {
+  case 0:
   loadBackground();
   objectTrigger();
   drawText();
+  break;
+  case 1:
+  firstBackground();
+  break;
+
+}
+
+
 
   console.log("hello? is anyone there?");
 
@@ -61,6 +71,8 @@ function draw() {
 }
 
 ///////////////////////////////////
+
+
 // Defining all the functions in "Draw"
 ///////////////////////////////////
 
@@ -91,23 +103,23 @@ function loadBackground() {
   // make some stars!
   for (var i = 0; i < 500; i++) {
     var starX = random(0,600);
-    var starY = random(0,300);
+    var starY = random(0,600);
     noStroke();
     fill(255);
     ellipse(starX, starY, 2, 2);
   }
 
   // create a nice city
-  fill(0);
-  rect(0,140,60,200);
-  rect(60,200,80,140);
-  rect(140,250,50,90);
-  rect(190,125,75,215);
-  rect(265,190,100,150);
-  rect(365,120,50,220);
-  rect(415,155,60,185);
-  rect(475,125,95,215);
-  rect(570,150,30,190);
+//  fill(0);
+//  rect(0,140,60,200);
+//  rect(60,200,80,140);
+//  rect(140,250,50,90);
+//  rect(190,125,75,215);
+//  rect(265,190,100,150);
+//  rect(365,120,50,220);
+//  rect(415,155,60,185);
+//  rect(475,125,95,215);
+//  rect(570,150,30,190);
 }
 
 /////////////////////////////////////////
@@ -133,13 +145,20 @@ function mousePressed() {
   var d = dist(mouseX, mouseY, objectX, objectY);
 
   if (d < 25) {
-    background(0);
-    fill(255);
-    console.log("background")
-    text("HI! WELCOME TO MY GAME :D", width/3,height/2);
+    gameStarting = true;
+    gameState++;
     }
   }
 
+
+function firstBackground() {
+  background(255);
+  fill(0);
+  textSize(20);
+  console.log("background");
+  text("HI! WELCOME TO MY GAME :D", width/6,height/2);
+  text("What's your name?",width/3,height-270);
+}
 /////////////////////////////////////////
 
 //function moveAvatar() {
