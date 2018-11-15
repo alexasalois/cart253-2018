@@ -30,16 +30,21 @@ function setup() {
   createCanvas(600,600);
   noStroke();
   loadBackground();
+  loadAvatar();
 }
 
 function draw() {
-  loadAvatar();
-
+  movePlayer();
+  updatePlayer();
+  drawAvatar();
 }
 
 function loadAvatar() {
   playerX = width/2;
   playerY = height-100;
+}
+
+function drawAvatar() {
   fill(255);
   noStroke();
   ellipseMode(RADIUS);
@@ -71,5 +76,36 @@ function loadBackground() {
   rect(570,150,30,300);
   fill(0);
   rect(0,300,width,300);
+}
 
+function movePlayer() {
+// make the avatar move using the arrow keys.
+
+// vertical
+  if (keyIsDown(UP_ARROW)) {
+    playerVY = -playerSpeed;
+  }
+  else if (keyIsDown(DOWN_ARROW)) {
+    playerVY = playerSpeed;
+  }
+  else {
+    playerVY = 0;
+  }
+
+// horizontal
+  if (keyIsDown(LEFT_ARROW)) {
+    playerVX = -playerSpeed;
+  }
+  else if (keyIsDown(RIGHT_ARROW)) {
+    playerVX = playerSpeed;
+  }
+  else {
+    playerVX = 0;
+  }
+}
+
+function updatePlayer() {
+  playerX = playerX + playerVX;
+  playerY = playerY + playerVY;
+  console.log(playerVX);
 }
