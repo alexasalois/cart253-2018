@@ -31,8 +31,11 @@ function preload() {
 function setup() {
   createCanvas(600,600);
   noStroke();
+
   loadBackground();
   loadAvatar();
+
+  drawObject();
 }
 
 ///////////////////////////////////
@@ -41,6 +44,8 @@ function draw() {
   moveAvatar();
   updateAvatar();
   drawAvatar();
+
+  surpriseObject();
 }
 
 ///////////////////////////////////
@@ -99,7 +104,10 @@ function moveAvatar() {
 // make the avatar move using the arrow keys.
 
 // vertical
-  if (keyIsDown(UP_ARROW)) {
+  if (playerY === 300 - playerRadius/2) {
+    playerVY = 0;
+  }
+  else if (keyIsDown(UP_ARROW)) {
     playerVY = -playerSpeed;
   }
   else if (keyIsDown(DOWN_ARROW)) {
@@ -127,3 +135,25 @@ function updateAvatar() {
   playerX = playerX + playerVX;
   playerY = playerY + playerVY;
 }
+
+//////////////////////////////////////////
+
+function surpriseObject() {
+  if (playerX < 200) {
+    drawObject();
+  }
+}
+
+//////////////////////////////////////////
+
+function drawObject() {
+  // set up varibales
+  var objectX = random(0,width);
+  var objectY = random(height/2,height);
+
+  // draw the object
+  fill(255,0,0);
+  ellipse(objectX,objectY,playerRadius,playerRadius);
+}
+
+////////////////////////////////////////////
