@@ -19,8 +19,8 @@ function Avatar(x,y,w,h,vx,leftArrow,rightArrow,upArrow,speed) {
 
 Avatar.prototype.display = function() {
   fill(0);
-  rectMode(CENTER);
-  rect(this.x,this.y,this.w,this.h)
+  imageMode(CENTER);
+  image(avatarResting,this.x,this.y,this.w,this.h);
 }
 
 Avatar.prototype.handleInput = function() {

@@ -13,6 +13,14 @@ var originy = 0;
 var scoreAvatar = 0;
 var projectiles = [];
 var r,g,b;
+var avatarShooting;
+
+function preload() {
+  avatarShooting = loadImage("../assets/images/cuteavatarshooting.png");
+  avatarResting = loadImage("../assets/images/cuteavatar.png");
+}
+
+
 
 function setup() {
   createCanvas(500,500);
@@ -22,7 +30,7 @@ function setup() {
   b = random(0,255);
 
   target = new Target(0,75,20,20,color(r,g,b));
-  avatar = new Avatar(width/2,height-25,20,50,10,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,10);
+  avatar = new Avatar(width/2,height-35,45,75,10,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,10);
 }
 
 function draw() {
@@ -48,5 +56,9 @@ function draw() {
 function keyPressed() {
   if (keyCode == 38) {
     projectiles.push(new Projectile(avatar.x,avatar.y,-5,15,5));
+    avatarResting = avatarShooting;
     }
-  }
+    else {
+    avatarShooting = avatarResting;
+    }
+}
