@@ -41,7 +41,7 @@ Target.prototype.isOffScreen = function() {
 
 Target.prototype.reset = function() {
   originx = 0;
-  originy = height/2;
+  originy = random(0,height);
   angle = 0;
   translate(originx,originy);
 }

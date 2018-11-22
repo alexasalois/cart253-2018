@@ -10,7 +10,9 @@
 var angle = 0;
 var originx = 0;
 var originy = 0;
+var scoreAvatar = 0;
 var projectiles = [];
+var targety = 0;
 
 function setup() {
   createCanvas(500,500);
@@ -30,12 +32,13 @@ function draw() {
       target.reset();
     }
 
-  target.display();
-  avatar.display();
+    target.display();
+    avatar.display();
 
   for (var i = 0; i < projectiles.length; i++) {
       projectiles[i].display();
       projectiles[i].moveProjectile();
+      projectiles[i].handleCollision();
       }
     }
 

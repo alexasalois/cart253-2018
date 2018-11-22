@@ -32,3 +32,19 @@ Projectile.prototype.isOffScreen = function() {
     this.y = 0;
   }
 }
+
+Projectile.prototype.handleCollision = function() {
+  var d = dist(this.x,this.y,originx,originy)
+
+  if (this.active === false) {
+        return;
+        }
+
+  if (d < this.size/2 + target.w/2) {
+    scoreAvatar = scoreAvatar + 1;
+    this.x = 0;
+    this.y = 0;
+    console.log("handle collision")
+    console.log(scoreAvatar)
+  }
+}
