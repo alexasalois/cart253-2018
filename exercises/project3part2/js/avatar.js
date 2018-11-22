@@ -5,7 +5,7 @@
 
 //////////////////////////////
 
-function Avatar(x,y,w,h,vx,leftArrow,rightArrow,speed) {
+function Avatar(x,y,w,h,vx,leftArrow,rightArrow,upArrow,speed) {
   this.x = x;
   this.y = y;
   this.w = w;
@@ -13,6 +13,7 @@ function Avatar(x,y,w,h,vx,leftArrow,rightArrow,speed) {
   this.vx = 0;
   this.leftArrow = leftArrow;
   this.rightArrow = rightArrow;
+  this.upArrow = upArrow;
   this.speed = speed;
 }
 
@@ -20,7 +21,6 @@ Avatar.prototype.display = function() {
   fill(0);
   rectMode(CENTER);
   rect(this.x,this.y,this.w,this.h)
-  console.log("display")
 }
 
 Avatar.prototype.handleInput = function() {
@@ -38,4 +38,10 @@ Avatar.prototype.handleInput = function() {
 Avatar.prototype.moveAvatar = function() {
   this.x += this.vx;
   this.x = constrain(this.x,0,width-this.w);
+}
+
+Avatar.prototype.shootProjectile = function() {
+  if (keyIsDown(this.upArrow)) {
+    projectiles.push(new Projectile(this.x,this.y,5,-5,15,5));
+  }
 }

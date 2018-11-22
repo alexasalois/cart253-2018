@@ -19,7 +19,6 @@ Target.prototype.display = function() {
   fill(0);
   rectMode(CENTER);
   rect(0,75,20,20);
-  console.log(originx)
   pop();
 }
 
