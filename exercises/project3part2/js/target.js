@@ -24,8 +24,24 @@ Target.prototype.moveTarget = function() {
   angle += -0.1;
   hellox += 1;
   helloy += random(-10,10);
+  console.log(hellox);
 }
 
 Target.prototype.isOffScreen = function() {
-  
+  console.log("TARGET y "+ this.y)
+  if ((hellox + this.y + this.w/2) > width) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+Target.prototype.reset = function() {
+  hellox = 0;
+  helloy = height/2;
+  angle = 0;
+  translate(hellox,helloy);
+
+
 }

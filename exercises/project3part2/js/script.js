@@ -21,6 +21,18 @@ function setup() {
 
 
 function draw() {
+  background(255);
   target.moveTarget();
+
+  console.log(target.isOffScreen())
+  if (target.isOffScreen() == true) {
+      // target = new Target(0,75,20,20);
+      console.log("new target?")
+      target.reset();
+  }
+
+
+
   target.display();
+  console.log("wasup");
 }
