@@ -12,24 +12,27 @@ function Target(x,y,w,h) {
   this.h = h;
 }
 
-Target.prototype.display = function(){
+Target.prototype.display = function() {
+  push();
+  translate(originx,originy);
+  rotate(angle);
   fill(0);
   rectMode(CENTER);
   rect(0,75,20,20);
+  console.log(originx)
+  pop();
 }
 
 Target.prototype.moveTarget = function() {
-  translate(hellox,helloy);
-  rotate(angle);
+  push();
   angle += -0.1;
-  hellox += 1;
-  helloy += random(-10,10);
-  console.log(hellox);
+  originx += 1;
+  originy += random(-10,10);
+  pop();
 }
 
 Target.prototype.isOffScreen = function() {
-  console.log("TARGET y "+ this.y)
-  if ((hellox + this.y + this.w/2) > width) {
+  if ((originx + this.y + this.w/2) > width) {
     return true;
   }
   else {
@@ -38,10 +41,8 @@ Target.prototype.isOffScreen = function() {
 }
 
 Target.prototype.reset = function() {
-  hellox = 0;
-  helloy = height/2;
+  originx = 0;
+  originy = height/2;
   angle = 0;
-  translate(hellox,helloy);
-
-
+  translate(originx,originy);
 }

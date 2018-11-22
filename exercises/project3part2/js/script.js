@@ -8,31 +8,30 @@
 ///////////////////////////
 
 var angle = 0;
-var hellox = 0;
-var helloy = 0;
+var originx = 0;
+var originy = 0;
 
 function setup() {
   createCanvas(500,500);
-  helloy = height/2;
+  originy = height/2;
 
   target = new Target(0,75,20,20);
-
+  avatar = new Avatar(width/2,height-25,20,50,10,LEFT_ARROW,RIGHT_ARROW,10);
 }
 
 
 function draw() {
-  background(255);
-  target.moveTarget();
+  background(100);
+  console.log(avatar.x)
 
-  console.log(target.isOffScreen())
+  avatar.handleInput();
+  target.moveTarget();
+  avatar.moveAvatar();
+
   if (target.isOffScreen() == true) {
-      // target = new Target(0,75,20,20);
-      console.log("new target?")
       target.reset();
   }
 
-
-
   target.display();
-  console.log("wasup");
+  avatar.display();
 }
