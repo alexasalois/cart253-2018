@@ -25,19 +25,22 @@ function draw() {
   avatar.handleInput();
   target.moveTarget();
   avatar.moveAvatar();
-  avatar.shootProjectile();
 
   if (target.isOffScreen() == true) {
       target.reset();
     }
+
   target.display();
   avatar.display();
 
-  console.log(projectiles.length)
   for (var i = 0; i < projectiles.length; i++) {
-    console.log("loop")
       projectiles[i].display();
       projectiles[i].moveProjectile();
       }
-      console.log("hbdkljsdfskwadjfh")
-}
+    }
+
+function keyPressed() {
+  if (keyCode == 38) {
+    projectiles.push(new Projectile(avatar.x,avatar.y,-5,15,5));
+    }
+  }

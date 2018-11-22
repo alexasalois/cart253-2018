@@ -39,9 +39,3 @@ Avatar.prototype.moveAvatar = function() {
   this.x += this.vx;
   this.x = constrain(this.x,0,width-this.w);
 }
-
-Avatar.prototype.shootProjectile = function() {
-  if (keyIsDown(this.upArrow)) {
-    projectiles.push(new Projectile(this.x,this.y,5,-5,15,5));
-  }
-}
