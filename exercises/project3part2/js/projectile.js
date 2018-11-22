@@ -33,8 +33,8 @@ Projectile.prototype.isOffScreen = function() {
   }
 }
 
-Projectile.prototype.handleCollision = function() {
-  var d = dist(this.x,this.y,originx,originy)
+Projectile.prototype.handleCollision = function(target) {
+  var d = dist(this.x,this.y,target.x,target.y)
 
   if (this.active === false) {
         return;

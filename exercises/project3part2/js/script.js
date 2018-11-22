@@ -12,13 +12,16 @@ var originx = 0;
 var originy = 0;
 var scoreAvatar = 0;
 var projectiles = [];
-var targety = 0;
+var r,g,b;
 
 function setup() {
   createCanvas(500,500);
   originy = height/2;
+  r = random(0,255);
+  g = random(0,255);
+  b = random(0,255);
 
-  target = new Target(0,75,20,20);
+  target = new Target(0,75,20,20,color(r,g,b));
   avatar = new Avatar(width/2,height-25,20,50,10,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,10);
 }
 
@@ -38,7 +41,7 @@ function draw() {
   for (var i = 0; i < projectiles.length; i++) {
       projectiles[i].display();
       projectiles[i].moveProjectile();
-      projectiles[i].handleCollision();
+      projectiles[i].handleCollision(target);
       }
     }
 

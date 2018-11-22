@@ -5,33 +5,35 @@
 
 //////////////////////////
 
-function Target(x,y,w,h) {
+function Target(x,y,w,h,color) {
   this.x = x;
   this.y = y;
   this.w = w;
   this.h = h;
+  this.color = color;
 }
 
 Target.prototype.display = function() {
   push();
-  translate(originx,originy);
+  translate(this.x,this.y);
   rotate(angle);
-  fill(0);
   rectMode(CENTER);
-  rect(0,75,20,20);
+  noStroke();
+  fill(this.color);
+  rect(0,0,this.w,this.h);
   pop();
 }
 
 Target.prototype.moveTarget = function() {
-  push();
+  // push();
   angle += -0.1;
-  originx += 1;
-  originy += random(-10,10);
-  pop();
+  this.x += 1;
+  this.y += random(-25,25);
+  // pop();
 }
 
 Target.prototype.isOffScreen = function() {
-  if ((originx + this.y + this.w/2) > width) {
+  if ((this.x + this.w/2) > width || this.y + this.h/2 > height || this.y - this.w/2 < 0) {
     return true;
   }
   else {
@@ -40,8 +42,12 @@ Target.prototype.isOffScreen = function() {
 }
 
 Target.prototype.reset = function() {
-  originx = 0;
-  originy = random(0,height);
+  this.x = 0;
+  this.y = random(0,height);
   angle = 0;
-  translate(originx,originy);
+  r = random(0,255);
+  g = random(0,255);
+  b = random(0,255);
+  this.color = color(r,g,b);
+  // translate(originx,originy);
 }
