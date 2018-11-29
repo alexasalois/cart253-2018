@@ -15,11 +15,12 @@ var scoreAvatar = 0;
 var projectiles = [];
 var r,g,b;
 var avatarShooting;
+var avatarResting;
 
 function preload() {
   // loading the images (2 avatars)
-  avatarShooting = loadImage("../assets/images/cuteavatarshooting.png");
-  avatarResting = loadImage("../assets/images/cuteavatar.png");
+  avatarShooting = loadImage("assets/images/cuteavatarshooting.png");
+  avatarResting = loadImage("assets/images/cuteavatar.png");
 }
 
 
