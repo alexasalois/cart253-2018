@@ -41,6 +41,7 @@ var avatarShooting;
 var avatarResting;
 var computerBackground;
 var firstBackground;
+var darkBackground;
 
 var once = true;
 
@@ -50,6 +51,7 @@ function preload() {
   firstBackgroundImage = loadImage("assets/images/pinkbg.png")
   avatarShooting = loadImage("assets/images/cuteavatarshooting.png");
   avatarResting = loadImage("assets/images/cuteavatar.png");
+  darkBackground = loadImage("assets/images/darkbg.png");
 }
 
 
@@ -313,6 +315,7 @@ function draw() {
         pop();
 
         // Display text, avatar wants to be with you
+        push();
         textSize(40);
         fill(255);
         textAlign(CENTER);
@@ -324,6 +327,7 @@ function draw() {
         fill(0);
         textSize(60);
         text("STAY HERE WITH ME FOREVER? (-:",width/2,height-250);
+        pop();
 
         // target stays on the left side of the screen, stuck at x=0. laggy / buggy effect
         target.x = 0;
@@ -331,6 +335,40 @@ function draw() {
         target.vx = 0;
       }
 
+      // player needs to choose
       function playerOption1() {
-        
+        push();
+        button2 = createButton('yes');
+        button2.position(200,500);
+        button2.mousePressed(endScreen);
+
+        button3 = createButton('no');
+        button3.position(400,500);
+        button3.mousePressed(keepPlaying);
+        pop();
+    }
+
+      // game ends, you are bff with the avatar
+      function endScreen() {
+        imageMode(CORNER);
+        background(darkBackground);
+        console.log("end screen?")
+        fill(255);
+        textSize(50);
+        text("YOU ARE MY BEST FRIEND <3 NOW WE WILL BE TOGETHER FOREVER",width/2,height/2);
+
+        button4 = createButton('ok');
+        button4.position(width/2,500);
+        button4.mousePressed(closeGame);
+      }
+
+      // game keeps going
+      function keepPlaying() {
+        gameState++;
+    }
+
+      // game officially ends
+      function closeGame() {
+        gameOver = true;
+        window.alert("Please close the browser page. Together forever, "+(nameValue)+".");
       }
