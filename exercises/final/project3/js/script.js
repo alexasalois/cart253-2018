@@ -10,7 +10,11 @@
 // Setting up the variables
 var angle = 0;
 var scoreAvatar = 0;
+var lifeAvatar = 5;
+
 var projectiles = [];
+var enemy = [];
+
 var objectX = 150;
 var objectY =  100;
 var zone1X = 80;
@@ -56,9 +60,6 @@ function setup() {
   r = random(0,255);
   g = random(0,255);
   b = random(0,255);
-//  setupNameInput();
-
-
 
   //spawn the target and the avatar
   target = new Target(0,75,20,20,color(r,g,b));
@@ -96,18 +97,45 @@ function draw() {
               target.reset();
               }
 
-                // display the target and avatar
-                target.display();
-                avatar.display();
+        // display the target and avatar
+            target.display();
+            avatar.display();
 
-                // spawn the projectiles using array, store all the "shots" inside
-                for (var i = 0; i < projectiles.length; i++) {
-                  projectiles[i].display();
-                  projectiles[i].moveProjectile();
-                  projectiles[i].handleCollision(target);
-                  }
-                }
+        // spawn the projectiles using array, store all the "shots" inside
+            for (var i = 0; i < projectiles.length; i++) {
+            projectiles[i].display();
+            projectiles[i].moveProjectile();
+            projectiles[i].handleCollision(target);
             }
+
+            for (var i = 0; i < enemy.length; i++) {
+            spawnEnemy();
+
+            enemy[i].display();
+            enemy[i].updateEnemy();
+            enemy[i].handleCollision(avatar);
+            }
+
+        // cute character talks to you
+            if (scoreAvatar > 3 && scoreAvatar < 7) {
+              avatarFirstQuestion();
+            }
+
+            if (scoreAvatar > 8 && scoreAvatar < 15) {
+              avatarSecondQuestion();
+            }
+
+            if (scoreAvatar > 14) {
+              avatarDecision();
+              playerOption1();
+            }
+
+
+
+          //  spawnEnemy();
+
+          }
+        }
 
         else {
         gameOver = true;
@@ -118,6 +146,7 @@ function draw() {
       function drawText() {
         var warningText = "DON'T PRESS ITDON'T DON'T DON'T DON'T DON'T DON'T TRUST IT DON'T TOUCH IT DON'T TRUST IT DONB PRNES IT DONT TRSUT IT TRSUT STRU TRUSH TRUSUT TRSUT TRUST ME";
         textSize(25);
+        fill(255);
         text(warningText,mouseX,mouseY,300,500);
       }
 
@@ -208,7 +237,6 @@ function draw() {
           nameValue = nameInput.value();
           friendValue = friendInput.value();
           foodValue = foodInput.value();
-          console.log(nameValue);
           gameState++;
 
           // Remove the input slots for the mini game
@@ -224,6 +252,8 @@ function draw() {
         imageMode(CORNER);
         fill(255);
         background(firstBackgroundImage);
+
+        if (scoreAvatar < 15) {
         textFont('Fascinate Inline');
         textSize(50);
         text("Nice to meet you "+(nameValue)+"!",20,60);
@@ -236,6 +266,7 @@ function draw() {
         textAlign(RIGHT);
         text(scoreAvatar,width-10,height-630)
         pop();
+        }
       }
 
       //shoot the projectile if the up arrow is pressed
@@ -250,40 +281,56 @@ function draw() {
         }
       }
 
+      // drop the enemies near the avatar
+      function spawnEnemy() {
+        setTimeout(function(){
+        console.log("spawn")
+        enemy.push(new Enemy(random(avatar.x - 20, avatar.x + 20),0,50,-15,-5));
+        } ,2000);
+      }
 
+      // avatar talks to you for the first time
+      function avatarFirstQuestion() {
+        fill(255);
+        textSize(30);
+        text((nameValue)+" is such a pretty name!^-^",avatar.x-20,avatar.y-50);
+      }
 
-  // draw grey background
-//   background(100);
-//
-//   // make the avatar and the target move, update their position
-//   avatar.handleInput();
-//   target.moveTarget();
-//   avatar.moveAvatar();
-//
-//   // reset the target to the left of the screen if it goes off screen
-//   if (target.isOffScreen() == true) {
-//       target.reset();
-//     }
-//
-//     // display the target and avatar
-//     target.display();
-//     avatar.display();
-//
-//   // spawn the projectiles using array, store all the "shots" inside
-//   for (var i = 0; i < projectiles.length; i++) {
-//       projectiles[i].display();
-//       projectiles[i].moveProjectile();
-//       projectiles[i].handleCollision(target);
-//       }
-//     }
-//
-// // shoot the projectile if the up arrow is pressed
-// function keyPressed() {
-//   if (keyCode == 38) {
-//     projectiles.push(new Projectile(avatar.x,avatar.y,-5,15,5));
-//     avatarResting = avatarShooting;
-//     }
-//     else {
-//     avatarShooting = avatarResting;
-//     }
-// }
+      // avatar asks a second question...
+      function avatarSecondQuestion() {
+        fill(255);
+        textSize(30);
+        text((foodValue)+" sounds so good! We should eat some together soon.",avatar.x-40,avatar.y-50);
+      }
+
+      function avatarDecision() {
+        // make the avatar creepily spin too fast, buggy...
+        push();
+        angle += 0.3;
+        rotate(angle);
+        imageMode(CENTER);
+        image(avatarResting,width/2,height/2,avatar.w,avatar.h)
+        pop();
+
+        // Display text, avatar wants to be with you
+        textSize(40);
+        fill(255);
+        textAlign(CENTER);
+        text((nameValue)+", I feel like we have so much in common...",width/2,height/2);
+        textSize(30);
+        text((nameValue)+")(*0)(*) "+(nameValue)+" %%$#%^"+(nameValue)+" 5t"+(nameValue)+" __)(8r6754)"+(nameValue)+"$#%6 "+(nameValue)+" %&**&)0"+(nameValue)+" @@@#@#!"+(nameValue)+"^%&)(L) "+(nameValue),width/2,50);
+        text("Who even is "+(friendValue)+"? We could be so happy together.",width/2,300);
+        text("I'll make you "+(foodValue)+" every day.",width/2,height-200);
+        fill(0);
+        textSize(60);
+        text("STAY HERE WITH ME FOREVER? (-:",width/2,height-250);
+
+        // target stays on the left side of the screen, stuck at x=0. laggy / buggy effect
+        target.x = 0;
+        target.y = 0;
+        target.vx = 0;
+      }
+
+      function playerOption1() {
+        
+      }
