@@ -118,9 +118,9 @@ function draw() {
           push();
           textSize(100);
           textAlign(RIGHT);
-          text(scoreAvatar,width-10,height-630);
+          text("score:"+(scoreAvatar),width-10,200);
           textAlign(LEFT);
-          text(lifeAvatar,10,200);
+          text("lives:"+(lifeAvatar),10,200);
           pop();
           }
           break;
@@ -162,30 +162,30 @@ function draw() {
             }
 
         // cute character talks to you, gets progressively evil
-            if (scoreAvatar > 3 && scoreAvatar < 5) {
+            if (scoreAvatar > 3 && scoreAvatar < 7) {
               avatarFirstQuestion();
             }
 
-            if (scoreAvatar > 4 && scoreAvatar < 6) {
+            if (scoreAvatar > 6 && scoreAvatar < 10) {
               avatarSecondQuestion();
             }
 
-            if (scoreAvatar > 5 && scoreAvatar < 10) {
+            if (scoreAvatar > 9 && scoreAvatar < 14) {
               avatarThirdQuestion();
             }
 
-            if (scoreAvatar > 10 && scoreAvatar < 21) {
+            if (scoreAvatar > 13 && scoreAvatar < 21) {
               avatarFourthQuestion();
               cuteMusic.pause();
               spookyMusic.play();
               spookyMusic.loop = true;
             }
 
-            if (scoreAvatar > 12 && scoreAvatar < 21) {
+            if (scoreAvatar > 16 && scoreAvatar < 21) {
               avatarFifthQuestion();
             }
 
-            if (scoreAvatar > 15 && scoreAvatar < 21) {
+            if (scoreAvatar > 19 && scoreAvatar < 21) {
               imageMode(CENTER);
               firstBackgroundImage = darkBackground;
               avatarSixthQuestion();
@@ -421,6 +421,8 @@ function draw() {
 
       // avatar is not pleased when he loses
       function lastBackground() {
+        cuteMusic.pause();
+
         textAlign(CENTER);
         fill(255);
         textSize(60);
@@ -430,14 +432,14 @@ function draw() {
         textSize(40);
         text("I bet "+(friendValue)+" thinks you suck anyways.",350,590);
         textSize(30);
-        text("Wanna play again?",100,450);
+        text("Wanna play again?",200,250);
 
         button3 = createButton('oh wait');
-        button3.position(300,200);
+        button3.position(400,200);
         button3.mousePressed(angryEnd);
 
         button4 = createButton('nobody cares');
-        button4.position(600,200);
+        button4.position(700,200);
         button4.mousePressed(angryEnd);
       }
 
