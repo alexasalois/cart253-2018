@@ -50,7 +50,5 @@ Projectile.prototype.handleCollision = function(target) {
     scoreAvatar = scoreAvatar + 1;
     this.x = 0;
     this.y = 0;
-    console.log("handle collision")
-    console.log(scoreAvatar)
   }
 }

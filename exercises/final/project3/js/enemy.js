@@ -10,7 +10,7 @@ function Enemy(x,y,size,vy,speed) {
   this.x = x;
   this.y = y;
   this.size = size;
-  this.vy = 0;
+  this.vy = vy;
   this.speed = speed;
 }
 
@@ -21,15 +21,18 @@ Enemy.prototype.display = function() {
 }
 
 Enemy.prototype.updateEnemy = function() {
+
   this.y += this.vy;
 }
 
 Enemy.prototype.isOffScreen = function() {
-  if ( this.y < 0 ) {
+  if ( this.y > 700 ) {
+
     this.vy = 0;
     this.size = 0;
-    this.x = 0;
-    this.y = 0;
+    this.x = -this.size;
+    this.y = -this.size;
+    enemyActive=true;
   }
 }
 
@@ -37,17 +40,14 @@ Enemy.prototype.isOffScreen = function() {
 Enemy.prototype.handleCollision = function(avatar) {
   var d = dist(this.x,this.y,avatar.x,avatar.y)
 
-  if (this.active === false) {
-        return;
-        }
+  // if (this.active === false) {
+  //       return true;
+  //       }
 
   // calculate the space between the enemy and the avatar to see when they touch, therefore loses a life
   if (d < this.size/2 + avatar.w/2) {
     lifeAvatar = lifeAvatar - 1;
-    this.x = 0;
-    this.y = 0;
-    console.log("avatar death")
-    console.log(lifeAvatar)
+
   }
 }
 

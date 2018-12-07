@@ -25,12 +25,17 @@ var zone2Y = 200;
 var gameOver = false;
 var gameStarting = false;
 var gameState = 0;
+var enemyActive = true;
 
 // player input
 var nameInput;
 var friendInput;
 var foodInput;
+
 var button1;
+var button2;
+var button3;
+var button4;
 
 var nameValue;
 var friendValue;
@@ -39,6 +44,8 @@ var foodValue;
 var r,g,b;
 var avatarShooting;
 var avatarResting;
+var avatarEvilResting;
+var avatarEvilShooting;
 var computerBackground;
 var firstBackground;
 var darkBackground;
@@ -48,9 +55,11 @@ var once = true;
 function preload() {
   // loading the images
   computerBackground = loadImage("assets/images/firstBackground.jpg");
-  firstBackgroundImage = loadImage("assets/images/pinkbg.png")
+  firstBackgroundImage = loadImage("assets/images/pinkbg.png");
   avatarShooting = loadImage("assets/images/cuteavatarshooting.png");
   avatarResting = loadImage("assets/images/cuteavatar.png");
+  avatarEvilResting = loadImage("assets/images/angryavatar.png");
+  avatarEvilShooting = loadImage("assets/images/angryavatarshooting.png");
   darkBackground = loadImage("assets/images/darkbg.png");
 }
 
@@ -85,7 +94,6 @@ function draw() {
           setupNameInput();
           once=false;
         }
-
         break;
 
         case 2:
@@ -105,41 +113,53 @@ function draw() {
 
         // spawn the projectiles using array, store all the "shots" inside
             for (var i = 0; i < projectiles.length; i++) {
-            projectiles[i].display();
-            projectiles[i].moveProjectile();
-            projectiles[i].handleCollision(target);
+              projectiles[i].display();
+              projectiles[i].moveProjectile();
+              projectiles[i].handleCollision(target);
+            }
+
+            if(enemyActive==true){
+                spawnEnemy();
             }
 
             for (var i = 0; i < enemy.length; i++) {
-            spawnEnemy();
-
-            enemy[i].display();
-            enemy[i].updateEnemy();
-            enemy[i].handleCollision(avatar);
+              enemy[i].display();
+              enemy[i].updateEnemy();
+              enemy[i].handleCollision(avatar);
+              enemy[i].isOffScreen();
             }
 
         // cute character talks to you
-            if (scoreAvatar > 3 && scoreAvatar < 7) {
+            if (scoreAvatar > 3 && scoreAvatar < 4) {
               avatarFirstQuestion();
             }
 
-            if (scoreAvatar > 8 && scoreAvatar < 15) {
+            if (scoreAvatar > 4 && scoreAvatar < 5) {
               avatarSecondQuestion();
             }
 
-            if (scoreAvatar > 14) {
-              avatarDecision();
-              playerOption1();
+            if (scoreAvatar > 5 && scoreAvatar < 10) {
+              avatarThirdQuestion();
+            }
+
+            if (scoreAvatar > 10 && scoreAvatar < 12) {
+              avatarFourthQuestion();
+            }
+
+            if (scoreAvatar > 12) {
+              enemy.speed = enemy.speed+2;
+              avatarFifthQuestion();
             }
 
 
 
-          //  spawnEnemy();
 
+            break;
           }
         }
 
         else {
+        endScreen();
         gameOver = true;
       }
     }
@@ -210,6 +230,18 @@ function draw() {
         if (conditionZone2 === true) {
           window.alert("Action Blocked!")
         }
+
+        // // Check which avatar the player clicks when facing the decision
+        // var d2 = dist(mouseX, mouseY, 250,600);
+        // var d3 = dist(mouseX, mouseY, 800,600);
+        //
+        // if (d2 < avatar.w/2 || avatar.h/2) {
+        //   endScreen();
+        // }
+        //
+        // if (d3 < avatar.w/2 || avatar.h/2) {
+        //   nextScreen();
+        // }
       }
 
       // Set up the player's personal info
@@ -285,10 +317,8 @@ function draw() {
 
       // drop the enemies near the avatar
       function spawnEnemy() {
-        setTimeout(function(){
-        console.log("spawn")
-        enemy.push(new Enemy(random(avatar.x - 20, avatar.x + 20),0,50,-15,-5));
-        } ,2000);
+        enemy.push(new Enemy(random(avatar.x - 100, avatar.x + 100),0,50,9,-5));
+        enemyActive=false;
       }
 
       // avatar talks to you for the first time
@@ -305,70 +335,114 @@ function draw() {
         text((foodValue)+" sounds so good! We should eat some together soon.",avatar.x-40,avatar.y-50);
       }
 
-      function avatarDecision() {
-        // make the avatar creepily spin too fast, buggy...
-        push();
-        angle += 0.3;
-        rotate(angle);
-        imageMode(CENTER);
-        image(avatarResting,width/2,height/2,avatar.w,avatar.h)
-        pop();
-
-        // Display text, avatar wants to be with you
-        push();
-        textSize(40);
+      function avatarThirdQuestion() {
         fill(255);
-        textAlign(CENTER);
-        text((nameValue)+", I feel like we have so much in common...",width/2,height/2);
         textSize(30);
-        text((nameValue)+")(*0)(*) "+(nameValue)+" %%$#%^"+(nameValue)+" 5t"+(nameValue)+" __)(8r6754)"+(nameValue)+"$#%6 "+(nameValue)+" %&**&)0"+(nameValue)+" @@@#@#!"+(nameValue)+"^%&)(L) "+(nameValue),width/2,50);
-        text("Who even is "+(friendValue)+"? We could be so happy together.",width/2,300);
-        text("I'll make you "+(foodValue)+" every day.",width/2,height-200);
-        fill(0);
-        textSize(60);
-        text("STAY HERE WITH ME FOREVER? (-:",width/2,height-250);
-        pop();
-
-        // target stays on the left side of the screen, stuck at x=0. laggy / buggy effect
-        target.x = 0;
-        target.y = 0;
-        target.vx = 0;
+        text("I'm glad you're hanging out with me and not "+(friendValue)+".",avatar.x-60,avatar.y-90);
+        text("They don't appreciate you like I do.",avatar.x-40,avatar.y-50);
+        avatar.setImage(avatarEvilResting);
       }
 
-      // player needs to choose
-      function playerOption1() {
-        push();
-        button2 = createButton('yes');
-        button2.position(200,500);
-        button2.mousePressed(endScreen);
+      function avatarFourthQuestion() {
+        fill(0);
+        textSize(40);
+        textAlign(CENTER);
+        text("I THINK Y$U SHOULD S7AY H3ERE WTH ME."+(nameValue),width/2,height/2);
+        avatar.setImage(avatarEvilResting);
+      }
 
-        button3 = createButton('no');
-        button3.position(400,500);
-        button3.mousePressed(keepPlaying);
-        pop();
-    }
+      function avatarFifthQuestion() {
+        fill(0);
+        textSize(40);
+        textAlign(CENTER);
+        text("Stop shooting at my gum drops!!!", width/2,height/3);
+        textSize(20);
+        text("Eat your dumb "+(foodValue)+" instead. Rude.",width/2,200);
+        avatar.setImage(avatarEvilResting);
+      }
+
+
+
+      // function avatarDecision() {
+      //   console.log("avatar decision");
+      //   // make the avatar creepily spin too fast, buggy...
+      //   push();
+      //   imageMode(CENTER);
+      //   image(avatarResting,width/2,height/2,avatar.w,avatar.h);
+      //   pop();
+      //
+      //   // Display text, avatar wants to be with you
+      //   // push();
+      //   textSize(40);
+      //   fill(255);
+      //   textAlign(CENTER);
+      //   text((nameValue)+", I feel like we have so much in common...",width/2,height/2);
+      //   textSize(30);
+      //   text((nameValue)+")(*0)(*) "+(nameValue)+" %%$#%^"+(nameValue)+" 5t"+(nameValue)+" __)(8r6754)"+(nameValue)+"$#%6 "+(nameValue)+" %&**&)0"+(nameValue)+" @@@#@#!"+(nameValue)+"^%&)(L) "+(nameValue),width/2,50);
+      //   text("Who even is "+(friendValue)+"? We could be so happy together.",width/2,300);
+      //   text("I'll make you "+(foodValue)+" every day.",width/2,height-200);
+      //   fill(0);
+      //   textSize(60);
+      //   text("STAY HERE WITH ME FOREVER? (-:",width/2,height-250);
+      //   // pop();
+      //
+      //   // target stays on the left side of the screen, stuck at x=0. laggy / buggy effect
+      //   target.x = 0;
+      //   target.y = 0;
+      //   target.vx = 0;
+
+
+      // player needs to choose
+        // console.log("player yes or no");
+        // button2 = createButton('yes');
+        // button2.position(500,500);
+        // button2.mousePressed(endScreen);
+        //
+        // button3 = createButton('no');
+        // button3.position(800,500);
+        // button3.mousePressed(nextScreen);
+  //  }
+
+
 
       // game ends, you are bff with the avatar
       function endScreen() {
         imageMode(CORNER);
         background(darkBackground);
-        console.log("end screen?")
         fill(255);
         textSize(50);
-        text("YOU ARE MY BEST FRIEND <3 NOW WE WILL BE TOGETHER FOREVER",width/2,height/2);
+        text("YOU ARE MY BEST FRIEND <3",175,height/2);
+        textSize(40);
+        text("NOW WE WILL BE TOGETHER FOREVER",160,height-250);
 
-        button4 = createButton('ok');
-        button4.position(width/2,500);
-        button4.mousePressed(closeGame);
+        imageMode(CENTER);
+        image(avatarEvilResting,width/2,100);
+        avatarShooting = avatarEvilShooting;
+        // angle += 0.1;
+        // rotate(angle);
+        //
+        // button4 = createButton('ok');
+        // button4.position(width/2,500);
+        // button4.mousePressed(closeGame);
       }
-
-      // game keeps going
-      function keepPlaying() {
-        gameState++;
-    }
 
       // game officially ends
       function closeGame() {
-        gameOver = true;
         window.alert("Please close the browser page. Together forever, "+(nameValue)+".");
       }
+        // button5 = createButton('Sorry...');
+        // button5.position(width/2,250);
+        // button5.mousePressed('keepPlaying');
+      //  }
+      //
+      // function endingTrigger() {
+      //   fill(255,0,0);
+      //   noStroke();
+      //   ellipse(250,600,avatar.w,avatar.h);
+      // }
+      //
+      // function advanceGame() {
+      //   fill(255,0,0);
+      //   noStroke();
+      //   ellipse(800,600,avatar.w,avatar.h);
+      // }
