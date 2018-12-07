@@ -115,17 +115,18 @@ function draw() {
           once=false;
 
           // always show score of player and lives left no matter the game state
-          push();
-          textSize(100);
-          textAlign(RIGHT);
-          text("score:"+(scoreAvatar),width-10,200);
-          textAlign(LEFT);
-          text("lives:"+(lifeAvatar),10,200);
-          pop();
+          // push();
+          // textSize(50);
+          // textAlign(RIGHT);
+          // text("score:"+(scoreAvatar),width-30,200);
+          // textAlign(LEFT);
+          // text("lives:"+(lifeAvatar),10,200);
+          // pop();
           }
           break;
 
         case 2:
+        // not sure if the music can carry on from different case so I added it just in CASE(haha)
         cuteMusic.play();
         cuteMusic.loop = true;
 
@@ -198,11 +199,11 @@ function draw() {
 
             // always show score of player and lives left no matter the game state
             push();
-            textSize(100);
+            textSize(50);
             textAlign(RIGHT);
-            text(scoreAvatar,width-10,height-630);
+            text("score: "+(scoreAvatar),width-20,200);
             textAlign(LEFT);
-            text(lifeAvatar,10,200);
+            text("lives: "+(lifeAvatar),10,200);
             pop();
             break;
           }
@@ -391,7 +392,7 @@ function draw() {
         fill(0);
         textSize(50);
         textAlign(CENTER);
-        text("I THINK Y$U SHOULD S7AY H3ERE WTH ME."+(nameValue),width/2,height/2);
+        text("I THINK Y$U SHOULD S7AY H3ERE WTH ME."+(nameValue),width/2,400);
         avatar.setImage(avatarEvilResting);
         avatarShooting = avatarEvilShooting;
       }
@@ -401,9 +402,9 @@ function draw() {
         fill(0);
         textSize(40);
         textAlign(CENTER);
-        text("Stop shooting at my gum drops!!!", width/2,height/3);
+        text("Stop shooting at my gum drops!!!", width/2,100);
         textSize(20);
-        text("Eat your dumb "+(foodValue)+" instead. Rude.",width/2,280);
+        text("Eat your dumb "+(foodValue)+" instead. Rude.",width/2,175);
         avatar.setImage(avatarEvilResting);
         avatarShooting = avatarEvilShooting;
       }
@@ -432,14 +433,14 @@ function draw() {
         textSize(40);
         text("I bet "+(friendValue)+" thinks you suck anyways.",350,590);
         textSize(30);
-        text("Wanna play again?",200,250);
+        text("Wanna play again?",550,250);
 
         button3 = createButton('oh wait');
-        button3.position(400,200);
+        button3.position(670,200);
         button3.mousePressed(angryEnd);
 
         button4 = createButton('nobody cares');
-        button4.position(700,200);
+        button4.position(780,200);
         button4.mousePressed(angryEnd);
       }
 
