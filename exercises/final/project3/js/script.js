@@ -82,8 +82,6 @@ function preload() {
   spookyMusic = new Audio("assets/sounds/creepy.mp3");
   }
 
-
-
 function setup() {
   // creating the canvas, setting up the starting color for the target (randomized)
   createCanvas(1100,700);
