@@ -14,17 +14,20 @@ function Enemy(x,y,size,vy,speed) {
   this.speed = speed;
 }
 
+// display as a little circle
 Enemy.prototype.display = function() {
   fill(255);
   noStroke();
   ellipse(this.x,this.y,this.size,this.size)
 }
 
+// update its position
 Enemy.prototype.updateEnemy = function() {
 
   this.y += this.vy;
 }
 
+// check if it's offscreen, if so "delete" it
 Enemy.prototype.isOffScreen = function() {
   if ( this.y > 700 ) {
 
@@ -40,20 +43,11 @@ Enemy.prototype.isOffScreen = function() {
 Enemy.prototype.handleCollision = function(avatar) {
   var d = dist(this.x,this.y,avatar.x,avatar.y)
 
-  // if (this.active === false) {
-  //       return true;
-  //       }
-
   // calculate the space between the enemy and the avatar to see when they touch, therefore loses a life
   if (d < this.size/2 + avatar.w/2) {
+    avatarDeath.play();
     lifeAvatar = lifeAvatar - 1;
-
+    this.x = 0-this.size;
+    this.y = 0-this.size;
   }
 }
-
-// Enemy.prototype.spawn = function(avatar) {
-//   this.x = random(avatar.x-20,avatar.x+20);
-//   this.y = 0;
-//   this.vy = 5;
-//   this.speed = 10;
-//   console.log("spawn")

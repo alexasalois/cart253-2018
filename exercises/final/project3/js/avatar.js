@@ -39,6 +39,7 @@ Avatar.prototype.handleInput = function() {
   }
 }
 
+// set the avatar as a cute image
 Avatar.prototype.setImage = function(image) {
   this.image = image;
 }

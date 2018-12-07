@@ -45,8 +45,9 @@ Projectile.prototype.handleCollision = function(target) {
         return;
         }
 
-  // calculate the space between the target and the projectile to see when they touch, therefore scores
+  // calculate the space between the target and the projectile to see when they touch, therefore scores and plays sound
   if (d < this.size/2 + target.w/2) {
+    targetCollision.play(currentTime = 0);
     scoreAvatar = scoreAvatar + 1;
     this.x = 0;
     this.y = 0;
